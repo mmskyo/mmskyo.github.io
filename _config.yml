@@ -1,0 +1,10 @@
+theme: just-the-docs
+
+title:  KyoSpace
+description: Late But Determined
+
+url: https://mmskyo.github.io
+
+aux_links:
+	Github:
+		- https://github.com/mmskyo
