@@ -7,3 +7,15 @@ url: https://mmskyo.github.io
 
 plugins:
   - jekyll-remote-theme
+
+# 문서 검색
+search_enabled: true
+
+# 사이드 네비게이션
+nav_enabled: true
+nav_sort: case_sensitive
+
+back_to_top: true
+
+kramdown:
+  syntax_highlighter: rouge

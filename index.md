@@ -7,3 +7,9 @@ nav_order: 1
 # Welcome to KyoSpace
 
 This is my documentation blog.
+
+## Categories
+
+- Computer Science
+- Cybersecurity
+- Projects
