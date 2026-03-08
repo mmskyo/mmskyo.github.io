@@ -1,9 +1,9 @@
 ---
-title: Cybersecurity
+title: Cyber Security
 nav_order: 3
 has_children: true
 ---
 
-# Cybersecurity
+# Cyber Security
 
-Notes about cybersecurity.
+Notes about cyber security.

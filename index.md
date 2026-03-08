@@ -11,5 +11,5 @@ This is my documentation blog.
 ## Categories
 
 - Computer Science
-- Cybersecurity
+- Cyber Security
 - Projects
