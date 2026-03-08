@@ -1,6 +1,7 @@
 ---
 title: Blog
 nav_order: 1
+parent: Projects
 ---
 ---
 # Blog
@@ -14,4 +15,4 @@ nav_order: 1
 		vi index.md		
 		```
 4. index에 제일 먼저 홈페이지에 띄울 것 작성
-5. 
+5. 깃허브 데스크탑으로 커밋 완료 후 사이트 들어가서 확인
