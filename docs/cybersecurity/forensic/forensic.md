@@ -1,7 +1,7 @@
 ---
 title: Forensic
-nav_order: 1
 parent: Cybersecurity
+nav_order: 1
 ---
 
 # Forensic
