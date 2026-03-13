@@ -9,3 +9,4 @@ parent: Projects
 https://fastapi.tiangolo.com/ko/tutorial/first-steps/
 api 사용 시퀀스 정리 예) 스캔->데이터전송->비교
 
+https://cobinding.tistory.com/165
