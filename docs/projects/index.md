@@ -6,4 +6,4 @@ has_children: yes
 
 # Projects
 
-- blog
+- Blog

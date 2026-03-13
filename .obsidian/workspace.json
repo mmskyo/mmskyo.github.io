@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/projects/blog.md",
+                "file": "docs/computerscience/index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "blog"
+              "title": "index"
             }
           }
         ],
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/projects/blog.md",
+                "file": "docs/computerscience/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for blog"
+              "title": "Backlinks for index"
             }
           },
           {
@@ -128,12 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/projects/blog.md",
+                "file": "docs/computerscience/index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from blog"
+              "title": "Outgoing links from index"
             }
           },
           {
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/projects/blog.md",
+                "file": "docs/computerscience/index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of blog"
+              "title": "Outline of index"
             }
           }
         ]
@@ -201,9 +201,10 @@
   },
   "active": "dbefb25bc6e516b3",
   "lastOpenFiles": [
-    "docs/projects/index.md",
     "docs/projects/blog.md",
-    "index.md",
-    "docs/cybersecurity/forensic/forensic.md"
+    "docs/projects/index.md",
+    "docs/cybersecurity/index.md",
+    "docs/cybersecurity/forensic/forensic.md",
+    "index.md"
   ]
 }
