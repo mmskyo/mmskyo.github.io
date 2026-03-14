@@ -3,7 +3,8 @@
     "dataview": true,
     "dataviewjs": true,
     "kotlin": true,
-    "python": true
+    "python": true,
+    "java": true
   },
   "defaultTitle": "(x)"
 }
