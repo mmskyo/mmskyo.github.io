@@ -74,3 +74,7 @@ Content-Type: application/json
 }
 
 ```
+# API
+REST API = 집 문의 규칙 (어떻게 문을 만들어야 하는지) ㄷㅌ
+FastAPI = 문 제작 회사 (실제로 문을 만들어주는 도구)
+
