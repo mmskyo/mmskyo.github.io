@@ -56,3 +56,36 @@ pip install 'pydantic[email]'
 ```
 fastapi dev app/main.py
 ```
+
+## 패스워드 72바이트 제한 우회
+security.py
+
+```import hashlib
+
+import bcrypt
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+
+# 입력 패스워드 → SHA256 → bcrypt 검증
+
+pre_hashed = hashlib.sha256(plain_password.encode('utf-8')).digest()
+
+return bcrypt.checkpw(pre_hashed, hashed_password.encode('utf-8'))
+
+  
+
+def get_password_hash(password: str) -> str:
+
+# 임의 길이 패스워드 → SHA256(72바이트) → bcrypt 해싱
+
+pre_hashed = hashlib.sha256(password.encode('utf-8')).digest()
+
+return bcrypt.hashpw(pre_hashed, bcrypt.gensalt()).decode('utf-8')
+```
+
+# 서버 정상 작동 확인
+## 1. /docs서버로 들어가서 swaggerui뜨는지 확인
+## 2. 회원가입
+## 3. 로그인
+## 4. 
