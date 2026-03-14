@@ -269,8 +269,9 @@ val result = api.scanQr(request)
 
 // 앱 화면 처리
 when {
-    result.safe -> showSafeScreen(result.url)  // [안전 ✅][이동 🔗]
-    else -> showDangerScreen(result.url, result.riskScore)  // [위험 ⚠️][홈↩️][무시➡️]
+    result.safe -> showSafeScreen(result.url)  // [안전][이동]
+    else -> showDangerScreen(result.url, result.riskScore)  // [홈][무시하고 이동]
 }
 
 ```
+
