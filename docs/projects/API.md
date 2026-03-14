@@ -275,3 +275,186 @@ when {
 
 ```
 
+# 서버에서 ml과 연동하여 실행하는 법
+main.py
+```python
+from fastapi import FastAPI, HTTPException
+
+from pydantic import BaseModel
+
+import joblib # scikit-learn 모델용
+
+import torch # PyTorch 모델용
+
+import numpy as np
+
+from typing import Optional
+
+  
+
+app= FastAPI(title="QR Safe Scanner with ML")
+
+  
+
+# 1단계 : ML 모델 로드 (서버 시작 시 1회)
+
+try:
+
+# 모델 1 scikit-learn 모델 .pkl
+
+ml_model= joblib.load("malware_classifier.pkl")
+
+print("모델 로드 완료 scikit learn")
+
+  
+
+# 모델 2 pytorch .pt
+
+  
+
+except Exception as e:
+
+print(f"모델 로드 실패: {e}")
+
+ml_model= None
+
+  
+  
+
+# 스캔 요청
+
+class ScanRequest(BaseModel):
+
+image_base64: str
+
+user_id: str
+
+extracted_url: Optional[str]= None # 다른 분이 미리 디코딩
+
+  
+
+# ML 모델에 직접 보낼 입력(협의)
+
+class MLInferenceRequest(BaseModel):
+
+url_features: list[float] # [도메인 길이, ip 포함 여부, https 여부 등]
+
+# 팀원1이 알려준 입력 형식에 맞추기
+
+  
+
+class MLResponse(BaseModel):
+
+safe: bool
+
+risk_score: float
+
+confidence: float
+
+  
+
+# 2단계 : QR 스캔->ML추론 파이프라인
+
+@app.post("/api/v1/scan", response_model=MLResponse)
+
+async def scan_qr_ml(request: ScanRequest):
+
+if ml_model is None:
+
+raise HTTPException*500, "모델 로드 실패")
+
+# 1. QR 디코딩
+
+url= request.extracted_url or "https://naver.com"
+
+  
+
+# 2. URL -> ML 입력 피처 변환
+
+url_features= url_to_features(url)
+
+  
+
+# 3. ML 모델 추론
+
+risk_score= ml_predict(url_features)
+
+  
+
+# 4. 결과 판단
+
+is_safe= risk_score < 0.5
+
+confidence= 0.95 # 모델의 confidence score
+
+  
+
+return MLResponse(
+
+safe= is_safe,
+
+risk_score= risk_score,
+
+confidence= confidence
+
+)
+
+  
+
+# 3단계: ML 예측 함수들
+
+def ml_predict(features: list[float]) -> float:
+
+"""ML 모델 추론 실행"""
+
+try:
+
+# scikit learn
+
+feature_array= np.array([features]).reshape(1, -1)
+
+prediction= ml_model.predict_proba(feature_array)[0][1] # 클래스 1(위험) 확률
+
+return float(prediction)
+
+  
+
+# pytorch
+
+  
+
+except Exception as e:
+
+print(f"ML 추론 오류: {e}")
+
+return 0.1 # 기본 안전
+
+  
+
+# 테스트용 ML 엔드포인트
+
+@app.post("/api/v1/ml/predict", response_model= MLResponse)
+
+async def test_ml_model(request: MLInferenceRequest):
+
+"""ML 모델 직접 테스트"""
+
+risk_score= ml_predict(request.url.features)
+
+return MLResponse(safe= risk_score < 0.5, risk_score= risk_score, confidence= 0.95)
+
+  
+
+@app.get("/health")
+
+async def health_check():
+
+return {
+
+"status": "healthy"
+
+"ml_model_loaded": ml_model is not None
+}
+```
+
+#
