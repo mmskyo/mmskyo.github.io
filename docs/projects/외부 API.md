@@ -38,3 +38,15 @@ qr-safe-scanner/
 ├── .env
 └── .gitignore
 ```
+
+import 할 때 경로 설정 제대로!
+from app.core.config import settings X
+만약 db에서 쓴다면
+from core.config O 
+why? app.을 붙이는건 자기 자신을 호출하는것!
+.. 또한 마찬가지
+같은 디렉토리에 이미 존재하기에 다른 폴더라도 붙일 필요가 없다. 그냥 폴더 이름만
+
+
+class baseurl ? 그거 이메일 어쩌구 못한다그러면
+pip install 'pydantic[email]'
