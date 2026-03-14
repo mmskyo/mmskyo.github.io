@@ -69,7 +69,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "API.md",
+                "file": "docs/projects/API.md",
                 "mode": "source",
                 "source": false
               },
@@ -243,11 +243,11 @@
   },
   "active": "1999a830d6bf4343",
   "lastOpenFiles": [
-    "docs/projects/blog.md",
-    "API.md",
-    "index.md",
     "docs/projects/CICD.md",
     "docs/projects/backend.md",
+    "docs/projects/API.md",
+    "docs/projects/blog.md",
+    "index.md",
     "docs/projects/index.md",
     "docs/computerscience/index.md",
     "docs/cybersecurity/index.md",
