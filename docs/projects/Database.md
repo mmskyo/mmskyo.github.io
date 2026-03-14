@@ -191,4 +191,39 @@ async def get_stats(user_id: str, db: Session = Depends(database.get_db)):
         "risky_scans": total - safe
     }
 ```
-## 
+## 실행 방법
+```bash
+# 1. requirements.txt
+echo "fastapi uvicorn sqlalchemy sqlmodel python-dotenv" > requirements.txt
+
+# 2. .env 파일 생성 (SQLite 무료)
+echo "DATABASE_URL=sqlite:///./scans.db" > .env
+
+# 3. 폴더 구조 만들고 위 코드들 저장
+
+# 4. 실행
+fastapi dev main.py
+```
+
+브라우저 테스트:
+```http://localhost:8000/docs
+→ POST /api/v1/scan → {"image_base64":"test", "user_id":"user123"}
+→ GET /api/v1/history?user_id=user123
+→ GET /api/v1/stats/user123
+
+```
+
+배포용 PostgreSQL (.env 수정)
+DATABASE_URL=postgresql://user:pass@your-render-db:5432/scans
+
+DB 확인
+```sql
+-- SQLite 파일 열기
+sqlite3 scans.db
+
+-- 데이터 확인
+SELECT * FROM scans ORDER BY scan_time DESC LIMIT 5;
+SELECT COUNT(*) FROM url_threats WHERE threat_level > 0.5;
+
+```
+

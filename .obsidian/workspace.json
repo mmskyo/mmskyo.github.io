@@ -86,16 +86,7 @@
                 "file": "docs/projects/Database.md",
                 "mode": "source",
                 "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
+                "backlinks": false
               },
               "icon": "lucide-file",
               "title": "Database"
