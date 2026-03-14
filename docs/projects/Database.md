@@ -226,6 +226,9 @@ sqlite3 scans.db
 SELECT * FROM scans ORDER BY scan_time DESC LIMIT 5;
 SELECT COUNT(*) FROM url_threats WHERE threat_level > 0.5;
 
+-- 나가기
+.exit
+.quit
 ```
 
 # 스키마
