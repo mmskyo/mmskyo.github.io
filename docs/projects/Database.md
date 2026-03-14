@@ -203,7 +203,7 @@ echo "DATABASE_URL=sqlite:///./scans.db" > .env
 # 3. 폴더 구조 만들고 위 코드들 저장
 
 # 4. 실행
-fastapi dev main.py
+fastapi dev app/main.py
 ```
 
 브라우저 테스트:
