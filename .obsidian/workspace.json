@@ -271,15 +271,15 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "1999a830d6bf4343",
+  "active": "13b9135a5a764f9c",
   "lastOpenFiles": [
-    "docs/projects/blog.md",
+    "docs/projects/FastAPI.md",
+    "docs/projects/index.md",
+    "docs/projects/외부 API.md",
     "docs/projects/Database.md",
+    "docs/projects/blog.md",
     "docs/projects/CICD.md",
     "docs/projects/backend.md",
-    "docs/projects/index.md",
-    "docs/projects/FastAPI.md",
-    "docs/projects/외부 API.md",
     "index.md",
     "docs/computerscience/index.md",
     "docs/cybersecurity/index.md",
