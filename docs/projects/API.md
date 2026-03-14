@@ -83,15 +83,43 @@ restapi만 있으면 원시상태
 # 수동으로 http 요청 처리 (flask 기본형)
 @app.route("/scan", methods=["POST"])
 def scan():
-raw_data = request.get_data() # 바이트로 받아서
-json_data = json.loads(raw_data) # 수동 파싱
+	raw_data = request.get_data() # 바이트로 받아서
+	json_data = json.loads(raw_data) # 수동 파싱
 # 수동 검증, 수동 에러처리 ...
 return json.dumps({"result": "ok"}) # 수동 변환
 ```
-fastapi
+fastapi 도구가 규칙 자동 적용
 ```python
 @app.post("/scan") #REST 규칙 자동 적용
 async def scan(request: ScanRequest): # 자동 검증
 	return request # 자동 JSON 변환
 ```
 
+왜 restapi?
+1. "안드로이드 앱이 서버와 통신" = REST API 규칙 필요
+2. FastAPI는 그 규칙을 "쉽게 구현해주는 도구"
+3. FastAPI 없이도 REST API 만들 수 있음 (Flask, Django DRF)
+
+요청 예시
+GET    /api/users/123    → 사용자 정보 가져오기
+POST   /api/scan         → QR 스캔 요청
+PUT    /api/users/123    → 사용자 정보 수정
+DELETE /api/scan/456     → 스캔 기록 삭제
+
+fastapi는 restapi를 자동으로 만들어줌
+```python
+from fastapi import FastAPI
+app = FastAPI()  # REST 규칙 적용된 서버 생성
+
+@app.get("/users/{id}")      # REST GET 자동
+@app.post("/scan")           # REST POST 자동
+@app.put("/users/{id}")      # REST PUT 자동
+@app.delete("/scan/{id}")    # REST DELETE 자동
+
+```
+FastAPI가 해주는 일:
+	•	HTTP 메서드 자동 처리
+	•	JSON 자동 변환
+	•	데이터 검증 자동
+	•	 /docs  자동 문서화
+	•	에러 처리 자동
