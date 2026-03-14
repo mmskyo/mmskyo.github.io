@@ -31,6 +31,7 @@ fastapi-server/
 └── .env
 
 1. database.py - 데이터베이스 연결 설정
+
 ```python
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
