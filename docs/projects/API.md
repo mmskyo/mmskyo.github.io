@@ -457,4 +457,32 @@ return {
 }
 ```
 
-#
+- requirements.txt 추가
+```python
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+scikit-learn==1.5.1
+torch==2.4.0
+numpy==1.26.4
+joblib==1.4.2
+python-multipart==0.0.9
+```
+
+# 실행 및 배포 순서
+```bash
+#1.의존성 설치
+pip install fastapi uvicorn scikit-learn numpy torch hoblib
+
+#2. ML 모델 파일 서버 폴더에 복사
+malware_classifier.pkl # 파일을 루트에 넣기
+
+#2. 실행
+pip install "fastapi[standard]" # fastapi dev 명령어 쓰려면 설치
+fastapi dev main.py
+
+#4. 테스트
+curl -X POST "http://localhost:8000/api/v1/scan" \
+	-H "Content-Type: application/json" \
+	-d '{image_base64": "test", "user_id": "user1", "extracted_url": "https://naver.com"}'
+```
+
