@@ -75,6 +75,23 @@ Content-Type: application/json
 
 ```
 # API
-REST API = 집 문의 규칙 (어떻게 문을 만들어야 하는지) ㄷㅌ
-FastAPI = 문 제작 회사 (실제로 문을 만들어주는 도구)
+REST API = 집 문의 규칙 (어떻게 문을 만들어야 하는지) 규칙/표준 ex. GET=읽기, POST=만들기
+FastAPI = 문 제작 회사 (실제로 문을 만들어주는 도구) 도구/프레임워크 ex. @app.post("/scan")
+
+restapi만 있으면 원시상태
+```python
+# 수동으로 http 요청 처리 (flask 기본형)
+@app.route("/scan", methods=["POST"])
+def scan():
+raw_data = request.get_data() # 바이트로 받아서
+json_data = json.loads(raw_data) # 수동 파싱
+# 수동 검증, 수동 에러처리 ...
+return json.dumps({"result": "ok"}) # 수동 변환
+```
+fastapi
+```python
+@app.post("/scan") #REST 규칙 자동 적용
+async def scan(request: ScanRequest): # 자동 검증
+	return request # 자동 JSON 변환
+```
 
