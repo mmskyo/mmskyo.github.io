@@ -486,3 +486,16 @@ curl -X POST "http://localhost:8000/api/v1/scan" \
 	-d '{image_base64": "test", "user_id": "user1", "extracted_url": "https://naver.com"}'
 ```
 
+# 디버깅 체크 리스트
+| 단계    | 확인사항                                       | 상태  |
+| ----- | ------------------------------------------ | --- |
+| 모델 로드 | `GET /health` -> `"ml_model_loaded": true` |     |
+| 피처 변환 | `url_to_features()`출력 확인                   |     |
+| 추론    | `POST /api/v1/ml/predict`성공                |     |
+| 통합    | `POST /api/v1/scan`전체 동작                   |     |
+
+# 실무 팁
+1. 모델 로드는 서버 시작 시 1회(메모리 상주)
+2. 입력 피처 순서 1개만 틀려도 100% 실패
+3. /healtch 엔드포인트 필수 (배포 후 모니터링)
+4. GPU 필요시 docker + nvidia-runtime
