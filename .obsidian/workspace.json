@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/projects/외부 API.md",
+                "file": "docs/projects/FastAPI.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "외부 API"
+              "title": "FastAPI"
             }
           },
           {
@@ -273,13 +273,13 @@
   },
   "active": "1999a830d6bf4343",
   "lastOpenFiles": [
+    "docs/projects/index.md",
+    "docs/projects/외부 API.md",
     "docs/projects/Database.md",
     "docs/projects/CICD.md",
     "docs/projects/FastAPI.md",
-    "docs/projects/외부 API.md",
     "docs/projects/backend.md",
     "docs/projects/blog.md",
-    "docs/projects/index.md",
     "index.md",
     "docs/computerscience/index.md",
     "docs/cybersecurity/index.md",

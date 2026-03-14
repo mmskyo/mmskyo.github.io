@@ -39,7 +39,8 @@ qr-safe-scanner/
 └── .gitignore
 ```
 
-import 할 때 경로 설정 제대로!
+import 할 때 경로 설정 제대로!\
+from .core.config X
 from app.core.config import settings X
 만약 db에서 쓴다면
 from core.config O 
