@@ -85,10 +85,34 @@ return bcrypt.hashpw(pre_hashed, bcrypt.gensalt()).decode('utf-8')
 ```
 
 # UTC 함수 오류
+```
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 
+to_encode = data.copy() # 토큰에 담을 데이터 복사
+
+if expires_delta:
+
+expire = datetime.now(UTC) + expires_delta # UTC 시간 사용
+
+else:
+
+expire = datetime.now(UTC) + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES) # UTC() 아님!! UTC만
+
+to_encode.update({"exp": expire, "type": "access"}) # 토큰 유형 명시
+
+encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm="HS256") # HS256 알고리즘으로 JWT 생성
+
+return encoded_jwt
+```
 # 서버 정상 작동 확인
 ## 1. /docs서버로 들어가서 swaggerui뜨는지 확인
 ## 2. 회원가입
 서버 응답 200번대로 뜨면 성공
 ## 3. 로그인
-## 4. 
+200
+## 4. 스캔
+"image_base64": "test_image_data",
+  "extracted_url": "https://naver.com",
+  "device_info": "iPhone 15 Pro"
+  로 입력
+  safe=True 면 성공
