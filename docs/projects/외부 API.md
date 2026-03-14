@@ -105,7 +105,7 @@ encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm="HS256") # HS
 return encoded_jwt
 ```
 # 서버 정상 작동 확인
-## 1. /docs서버로 들어가서 swaggerui뜨는지 확인
+## 1. /docs서버로 들어가서 swaggerUi뜨는지 확인
 ## 2. 회원가입
 서버 응답 200번대로 뜨면 성공
 ## 3. 로그인
