@@ -124,7 +124,153 @@ FastAPI가 해주는 일:
 	•	 /docs  자동 문서화
 	•	에러 처리 자동
 
+API 스펙
 
-|엔드포인트|
-|---|
+| 엔드포인트           | 메서드    | 역할          | 앱 화면   |
+| --------------- | ------ | ----------- | ------ |
+| /api/v1/scan    | `POST` | QR 스캔 + 검사  | 메인기능   |
+| /api/v1/history | `GET`  | 검사 이력 조회    | 히스토리 탭 |
+| /api/v1/stats   | `GET`  | 통계(이번주 안전률) | 대시보드   |
 
+# 실제 구현 코드
+```python
+from fastapi import FastAPI, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import Optional, List
+import hashlib
+import time
+from enum import Enum
+
+app = FastAPI(title="QR Safe Scanner API", version="1.0.0")
+
+# CORS - 안드로이드 앱 허용
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 나중에 앱 도메인으로 변경
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# 요청/응답 데이터 형식
+class ScanType(str, Enum):
+    QR = "qr"
+    BARCODE = "barcode"
+
+class ScanRequest(BaseModel):
+    image_base64: str        # 앱에서 보낸 QR 이미지
+    user_id: str             # 사용자 식별자
+    scan_type: ScanType = ScanType.QR
+
+class ScanResult(BaseModel):
+    safe: bool               # 안전여부
+    url: Optional[str] = None  # QR에서 추출된 URL
+    risk_score: float        # 위험도 0.0~1.0
+    risk_reason: Optional[str] = None  # "피싱", "악성코드"
+    scan_id: str             # 추적용 ID
+
+class HistoryResponse(BaseModel):
+    scans: List[ScanResult]
+
+# 가짜 악성 URL 데이터베이스 (실제론 외부 API 연동)
+DANGEROUS_SITES = {
+    "http://malware.com": 0.95,
+    "http://phishing.kr": 0.92,
+    "http://fakebank.com": 0.88
+}
+
+# 1️⃣ 메인 스캔 API (당신 핵심 역할)
+@app.post("/api/v1/scan", response_model=ScanResult)
+async def scan_qr(request: ScanRequest):
+    """
+    QR코드 스캔 → URL 추출 → 악성여부 검사 → 결과 반환
+    """
+    # 1. QR에서 URL 추출 (실제론 pyzbar/opencv 사용)
+    extracted_url = extract_url_from_qr(request.image_base64)
+    
+    # 2. 악성 사이트 검사
+    risk_score = check_malware(extracted_url)
+    
+    # 3. 결과 판단
+    is_safe = risk_score < 0.5
+    risk_reason = "피싱 사이트" if risk_score > 0.8 else None
+    
+    # 4. 고유 scan_id 생성
+    scan_id = hashlib.md5(f"{request.user_id}{time.time()}".encode()).hexdigest()[:8]
+    
+    return ScanResult(
+        safe=is_safe,
+        url=extracted_url,
+        risk_score=risk_score,
+        risk_reason=risk_reason,
+        scan_id=scan_id
+    )
+
+# 2️⃣ 검사 이력 조회
+@app.get("/api/v1/history", response_model=HistoryResponse)
+async def get_history(user_id: str):
+    """사용자의 최근 10개 검사 이력"""
+    # 실제론 Redis/DB에서 조회
+    return HistoryResponse(scans=[
+        ScanResult(
+            safe=True, 
+            url="https://naver.com", 
+            risk_score=0.1, 
+            scan_id="abc12345"
+        )
+    ])
+
+# 3️⃣ 통계
+@app.get("/api/v1/stats")
+async def get_stats(user_id: str):
+    """이번주 안전률 등 통계"""
+    return {
+        "safe_rate": 0.92,
+        "total_scans": 47,
+        "risky_scans": 4
+    }
+
+# 헬퍼 함수들 (실제 구현 시 외부 라이브러리 사용)
+def extract_url_from_qr(image_base64: str) -> str:
+    """QR 이미지에서 URL 추출 (가짜)"""
+    # 실제론: pyzbar, opencv-python 사용
+    return "https://naver.com"  # 테스트용
+
+def check_malware(url: str) -> float:
+    """악성 여부 점수 반환 (가짜)"""
+    # 실제론: Google Safe Browsing API, VirusTotal API 연동
+    if any(danger in url.lower() for danger in DANGEROUS_SITES):
+        return DANGEROUS_SITES.get(url, 0.1)
+    return 0.1  # 기본 안전
+
+# 서버 상태 확인
+@app.get("/")
+async def root():
+    return {"message": "QR Safe Scanner API 동작 중", "docs": "/docs"}
+
+```
+
+# 안드로이드에서 호출하는 법
+```kotlin
+// Retrofit 인터페이스
+interface ScanApi {
+    @POST("api/v1/scan")
+    suspend fun scanQr(@Body request: ScanRequest): ScanResult
+}
+
+// 실제 호출
+val request = ScanRequest(
+    imageBase64 = base64Image,
+    userId = "user123",
+    scanType = "qr"
+)
+val result = api.scanQr(request)
+
+// 앱 화면 처리
+when {
+    result.safe -> showSafeScreen(result.url)  // [안전 ✅][이동 🔗]
+    else -> showDangerScreen(result.url, result.riskScore)  // [위험 ⚠️][홈↩️][무시➡️]
+}
+
+```
