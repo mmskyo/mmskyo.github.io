@@ -52,4 +52,7 @@ why? app.을 붙이는건 자기 자신을 호출하는것!
 class baseurl ? 그거 이메일 어쩌구 못한다그러면
 pip install 'pydantic[email]'
 
+서버 실행 명령어
+```
 fastapi dev app/main.py
+```
