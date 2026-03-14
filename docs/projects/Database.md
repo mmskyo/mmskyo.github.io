@@ -214,7 +214,7 @@ fastapi dev main.py
 
 ```
 
-배포용 PostgreSQL (.env 수정)
+# 배포용 PostgreSQL (.env 수정)
 DATABASE_URL=postgresql://user:pass@your-render-db:5432/scans
 
 DB 확인
@@ -227,4 +227,42 @@ SELECT * FROM scans ORDER BY scan_time DESC LIMIT 5;
 SELECT COUNT(*) FROM url_threats WHERE threat_level > 0.5;
 
 ```
+
+# 스키마
+users 테이블
+├── id (Primary Key, Auto Increment) 
+├── email (Unique + Index) 
+├── hashed_password (VARCHAR(255)) 
+└── created_at (Timestamp, Default now()) 
+
+scans 테이블 (Foreign Key 관계)
+├── id (PK) 
+├── user_id (FK → users.id) 
+├── url (VARCHAR) 
+├── safe (Boolean) 
+├── risk_score (Float) 
+└── scan_time (Timestamp) 
+
+# ORM 연동 (SQLAlchemy)
+1. Session 관리: Depends(get_db) → 자동 생성/종료 ✓
+2. 모델 정의: declarative_base() → 테이블 자동 생성 ✓
+3. 쿼리: session.query() + filter() → 성능 최적화 ✓
+4. 트랜잭션: add → commit → refresh → 완벽 ✓
+ex.
+```
+# 1. 세션 주입 (의존성 주입)
+async def scan(..., db: Session = Depends(get_db)):
+
+# 2. 쿼리 (인덱스 활용)
+db_user = db.query(User).filter(User.email == email).first()
+
+# 3. 저장 (트랜잭션 자동)
+db.add(user)
+db.commit()  # 자동 롤백 처리
+db.refresh(user)  # 최신 데이터
+
+# 4. 응답 변환 (Pydantic 자동)
+return user  # ORM → JSON
+```
+
 

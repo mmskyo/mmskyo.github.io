@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/projects/외부 API.md",
+                "file": "docs/projects/Database.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "외부 API"
+              "title": "Database"
             }
           },
           {
@@ -273,10 +273,10 @@
   },
   "active": "1999a830d6bf4343",
   "lastOpenFiles": [
+    "docs/projects/외부 API.md",
     "docs/projects/Database.md",
     "docs/projects/FastAPI.md",
     "docs/projects/index.md",
-    "docs/projects/외부 API.md",
     "docs/projects/CICD.md",
     "docs/projects/backend.md",
     "docs/projects/blog.md",
