@@ -84,6 +84,8 @@ pre_hashed = hashlib.sha256(password.encode('utf-8')).digest()
 return bcrypt.hashpw(pre_hashed, bcrypt.gensalt()).decode('utf-8')
 ```
 
+# UTC 함수 오류
+
 # 서버 정상 작동 확인
 ## 1. /docs서버로 들어가서 swaggerui뜨는지 확인
 ## 2. 회원가입
