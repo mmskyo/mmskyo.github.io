@@ -8,10 +8,10 @@ title: apidesc
 # 런타임 & 프레임워크
 python 3.11.x
 FastAPI 0.111
-Pydantic v2
-python-jose 3.3
-LightGBM 4.x
-SHAP 0.45
+Pydantic v2 # Score breakdown, XAIFeature 모델 정의
+python-jose 3.3 # JWT HS256 / bcrypt passlib 1.7
+LightGBM 4.x # ml 모델, joblib 직렬화 -> s3 저장
+SHAP 0.45 # xai : feature contrib
 API v3
 tldextract 5.x
 POSTGRESQL 16.x
@@ -65,5 +65,5 @@ phishing-detector-bucket/ 
 ```
 
 # 전체 백엔드 아키텍처
-안드로이드 - 클라이언트
-CameraX + ML Kit
+![[Pasted image 20260315203355.png]]
+
