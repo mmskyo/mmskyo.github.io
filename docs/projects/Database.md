@@ -286,3 +286,14 @@ rdbms의 종류이다..
 - SQLAlchemy: 파이썬에서 orm을 구현할 수 있게 도와주는 가장 유명한 라이브러리
 		백엔드구현: 파이썬으로 User.save()라고 쓰면 알케미가 이걸 INSERT INTO users 라는 sql문으로 번역해서 PostgreSQL에게 전달
 
+2. ER vs RDBMS (설계도 vs 완성건물)
+어떤 단계에서 쓰느냐!
+	- ER: 데이터를 설계할 때 그리는 기획서/설계도
+	- RDBMS: 그 설계도를 바탕으로 실제로 데이터를 저장할 수 있게 구축된 완성된 건물
+
+# SQLAlchemy 맛보기
+db에 url 스캔 결과를 저장하는 테이블을 만들고, 데이터를 하나 집어넣어라 는 명령
+```python
+from sqlalchemy import create_all, Column, Integer, String, Float, Boolean
+from sqlalchemy 
+```
