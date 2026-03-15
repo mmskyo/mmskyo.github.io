@@ -125,12 +125,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "API 명세서.md",
+                "file": "docs/projects/PEP 8.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "API 명세서"
+              "title": "PEP 8"
+            }
+          },
+          {
+            "id": "4577b35a60967ee3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Roadmap.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Roadmap"
             }
           },
           {
@@ -163,7 +177,7 @@
             }
           }
         ],
-        "currentTab": 8
+        "currentTab": 9
       }
     ],
     "direction": "vertical"
@@ -220,8 +234,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "e4148a1aaae4ca64",
@@ -328,11 +341,12 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "ec0055f829259dcc",
+  "active": "4577b35a60967ee3",
   "lastOpenFiles": [
-    "docs/projects/Test.md",
-    "API 명세서.md",
     "docs/projects/PEP 8.md",
+    "Roadmap.md",
+    "API 명세서.md",
+    "docs/projects/Test.md",
     "docs/cybersecurity/forensic/forensic.md",
     "docs/projects/Refactoring.md",
     "docs/projects/Database.md",
