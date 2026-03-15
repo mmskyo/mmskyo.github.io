@@ -313,3 +313,19 @@ lambda_api 일꾼들이 아직도 예전 툴model_v1.pkl을 들고 일을함
 
 환경변수 활용 - MODEL_PATH에 s3 주소 적기
 Redis에 최신버전 정보 저장 - 레디스에 curent_model_path 키로 주소 저장 -> 람다 재부팅 필요 없음 but, 새 모델 로드마다 s3에서 다운로드하는 로직 코딩
+
+| 화면        | HTTP 메서드 | 엔드포인트                                    | 인증              |
+| --------- | -------- | ---------------------------------------- | --------------- |
+| 스캔 결과     | `POST`   | `/api/v1/scan/url`                       | JWT Bearer      |
+| 방문기록      | `GET`    | `/api/v1/users/me/visits`                | JWT Bearer      |
+| 즐겨찾기 조회   | `GET`    | `/api/v1/users/me/bookmarks`             | JWT Bearer      |
+| 즐겨찾기 추가   | `POST`   | `/api/v1/users/me/bookmarks`             | JWT Bearer      |
+| 즐겨찾기 삭제   | `DELETE` | `/api/v1/users/me/bookmarks/{id}`        | JWT Bearer      |
+| URL 신고    | `POST`   | `/api/v1/report`                         | JWT Bearer      |
+| 블랙리스트 랭킹  | `GET`    | `/api/v1/report/blacklist`               | 없음 (공개)         |
+| 스캔 이력 캘린더 | `GET`    | `/api/v1/users/me/scan-logs`             | JWT Bearer      |
+| 스캔 상세     | `GET`    | `/api/v1/users/me/scan-logs/{id}/detail` | JWT Bearer      |
+| 회원가입      | `POST`   | `/api/v1/auth/register`                  | 없음              |
+| 로그인       | `POST`   | `/api/v1/auth/login`                     | 없음              |
+| 토큰 갱신     | `POST`   | `/api/v1/auth/refresh`                   | HttpOnly Cookie |
+| 로그아웃      | `POST`   | `/api/v1/auth/logout`                    | JWT Bearer      |
