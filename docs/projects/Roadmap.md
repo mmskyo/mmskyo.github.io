@@ -50,3 +50,6 @@ title: roadmap
 - [ ] **S3 피드백 포맷:** `{"url": "...", "label": "safe", "reported_at": "..."}` JSONL 형식 합의
 - [ ] **재학습 트리거:** 피드백 누적 N건 이상 시 CloudWatch 알림 → 재학습 파이프라인 자동 실행 여부
 - [ ] **블랙리스트 동기화:** 신고 N회 이상 URL을 ML 학습 데이터에도 `malicious=1`로 추가
+
+
+1. ERD 작성 2. API 명세서 (Swagger/Interface) 정의 3.기술 스택 및 환경 설정: python과 db버전, s3 구조 설계(어떤 경로 models/v1/)
