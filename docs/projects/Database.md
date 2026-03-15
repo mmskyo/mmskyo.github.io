@@ -311,4 +311,5 @@ lambda_api 일꾼들이 아직도 예전 툴model_v1.pkl을 들고 일을함
 2. lambda의 버전/별칭(alias) 기능 사용
 기존 서비스에 영향 x
 
-환경변수 활용 - MODEL_PATH에 주소 적기
+환경변수 활용 - MODEL_PATH에 s3 주소 적기
+Redis에 최신버전 정보 저장 - 레디스에 curent_model_path 키로 주소 저장 -> 람다 재부팅 필요 없음 but, 새 모델 로드마다 s3에서 다운로드하는 로직 코딩
