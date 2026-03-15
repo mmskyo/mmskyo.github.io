@@ -5,17 +5,27 @@ title: apidesc
 
 ![[api_spec_v1.html]]
 
+# 점수 산정 로직
+vt 점수 환산
+```python
+vt-raw-score = (detected / total) * 100
+ml-raw-score = ml_prob * 100
+
+```
+
 # 런타임 & 프레임워크
 python 3.11.x
 FastAPI 0.111
 Pydantic v2 # Score breakdown, XAIFeature 모델 정의
 python-jose 3.3 # JWT HS256 / bcrypt passlib 1.7
 LightGBM 4.x # ml 모델, joblib 직렬화 -> s3 저장
-SHAP 0.45 # xai : feature contrib
-API v3
-tldextract 5.x
-POSTGRESQL 16.x
-REDIS 7.2.x
+SHAP 0.45 # xai : feature contribution 계산 -> xai_features JSON 저장
+API v3 # 바토: httpx async 호출, detected/total -> vt_raw_score
+tldextract 5.x # feature 추출: 도메인 파싱 urllib.parse + regex
+POSTGRESQL 16.x # sqlalchemy 2.0 async + asyncpg, Alembic 1.13 migration
+REDIS 7.2.x # ElastCache - scan:{url_hash} TTL 6시간임
+Room / SQLite # 로컬디비
+
 
 # S3 버킷 구조
 ```
