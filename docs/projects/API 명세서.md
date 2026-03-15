@@ -48,6 +48,20 @@ phishing-detector-bucket/ 
 └── feature_names.json 
 │ 
 ├── datasets/ 
-│ ├── base/ # 초기 학습 원본 (불변) 
-│ │ └── phishing_urls_v1.csv │ └── approved/ # VT 검증 통과한 피드백 데이터 │ ├── feedback_2025Q1.csv │ └── feedback_2025Q2.csv │ └── training-logs/ └── run_20250310_v2.json # { f1_before, f1_after, promoted: true }
+│ 
+├── base/ # 초기 학습 원본 (불변) 
+│ 
+│ 
+└── phishing_urls_v1.csv 
+│ 
+└── approved/ # VT 검증 통과한 피드백 데이터 
+│ 
+├── feedback_2025Q1.csv 
+│ 
+└── feedback_2025Q2.csv 
+│ 
+└── training-logs/ 
+└── run_20250310_v2.json # { f1_before, f1_after, promoted: true }
 ```
+
+# 전체 백엔드 아키텍처
