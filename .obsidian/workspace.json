@@ -120,6 +120,20 @@
             }
           },
           {
+            "id": "ec0055f829259dcc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "API 명세서.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "API 명세서"
+            }
+          },
+          {
             "id": "748cb1930ba6339e",
             "type": "leaf",
             "state": {
@@ -149,7 +163,7 @@
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 8
       }
     ],
     "direction": "vertical"
@@ -206,7 +220,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "e4148a1aaae4ca64",
@@ -313,10 +328,11 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "d5e231475172ea3a",
+  "active": "ec0055f829259dcc",
   "lastOpenFiles": [
-    "docs/projects/PEP 8.md",
     "docs/projects/Test.md",
+    "API 명세서.md",
+    "docs/projects/PEP 8.md",
     "docs/cybersecurity/forensic/forensic.md",
     "docs/projects/Refactoring.md",
     "docs/projects/Database.md",
