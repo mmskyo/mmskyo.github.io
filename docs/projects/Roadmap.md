@@ -37,7 +37,7 @@ title: roadmap
 
 ## Backend - Cloud 협의사항:
 
-볼드체 표시 맞는지 확인해주세요!
+볼드체 표시 맞는지 확인
 
 - [ ] 데이터베이스 호스팅 (**RDS**, CloudSQL, etc)
 - [ ] Redis 호스팅 (**ElastiCache**, Memorystore, etc)
@@ -60,4 +60,4 @@ title: roadmap
 - [ ] **블랙리스트 동기화:** 신고 N회 이상 URL을 ML 학습 데이터에도 `malicious=1`로 추가
 
 
-1. ERD 작성 2. API 명세서 (Swagger/Interface) 정의 3.기술 스택 및 환경 설정: python과 db버전, s3 구조 설계(어떤 경로 models/v1/) 4. 전체적 백엔드(백-프론트, 백-서버) 아키텍처를 짜줘.
+1. ERD 작성 2. API 명세서 (Swagger/Interface) 정의 3.기술 스택 및 환경 설정: python과 db버전, s3 구조 설계(어떤 경로 models/v1/) 4. 전체적 백엔드(백-프론트, 백-서버) 아키텍처
