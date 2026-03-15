@@ -297,3 +297,18 @@ db에 url 스캔 결과를 저장하는 테이블을 만들고, 데이터를 하
 from sqlalchemy import create_all, Column, Integer, String, Float, Boolean
 from sqlalchemy 
 ```
+
+# 무중단 갱신 Hot Reload
+서버를 끄지않고 손님들 모르게 모델을 바꿔치기
+lambda_train이 APIGW를 호출하면서 무중단 갱신을 요청
+lambda_api 일꾼들이 아직도 예전 툴model_v1.pkl을 들고 일을함
+이때 백엔드 시스템은 기존 일꾼들을 퇴근시키고 새로운 모델을 든 새 일꾼을 투입
+
+작동 원리 : 백엔드코드에서 s3의 latest 폴더에 있는걸 가져와라 고 짜놨으면 lambda train이 s3파일만 쓱 갈아치움
+
+방법 2가지
+1. s3 경로 활용
+2. lambda의 버전/별칭(alias) 기능 사용
+기존 서비스에 영향 x
+
+환경변수 활용 - MODEL_PATH에 주소 적기
