@@ -26,6 +26,14 @@ title: roadmap
 - [ ]  **S3 피드백 연동** FALSE_POSITIVE → ML 재학습 파이프라인 _(신규)_
 - [ ]  **Room DB** 오프라인 로컬 캐싱
 
+**내가 짜야 하는 것 (Android)**
+
+- 카메라로 QR 스캔 → URL 추출 (CameraX + ML Kit)
+- Room DB 화이트리스트 로컬 캐시 확인
+- `POST /api/v1/scan/url` 호출 (Retrofit2)
+- 서버에서 받은 `final_score`, `risk_level`, `xai_features` 화면에 표시
+- 방문기록, 즐겨찾기, 신고 버튼 UI
+
 
 ## Backend - Cloud 협의사항:
 
