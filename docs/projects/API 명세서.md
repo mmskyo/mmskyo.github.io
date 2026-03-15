@@ -82,3 +82,7 @@ phishing-detector-bucket/ 
 # 전체 백엔드 아키텍처
 ![[Pasted image 20260315203355.png]]
 
+
+
+```yaml
+
