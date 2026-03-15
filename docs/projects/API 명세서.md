@@ -15,6 +15,7 @@ if vt_detected >= 1: vt_weight, ml_weight = 0.8, 0.2
 else: vt_weight, ml_weight = 0.2, 0.8
 
 final score = (vt_raw * vt_weight) + (ml_raw * ml_weight)
+
 ```
 
 # 런타임 & 프레임워크
