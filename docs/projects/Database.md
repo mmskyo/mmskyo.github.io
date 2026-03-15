@@ -269,3 +269,5 @@ return user  # ORM → JSON
 ```
 
 
+# 비동기식 생성
+참고: https://devspoon.tistory.com/308
