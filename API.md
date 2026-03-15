@@ -44,5 +44,25 @@ async def scan_url_api(request: ScanRequest):
 	# 실제 현업이라면 여기에 아래와 같은 로직이 들어감
 	#----------
 	
-	# 1. Redis 캐시 확인 (이전에 똑같은)
+	# 1. Redis 캐시 확인 (이전에 똑같은 url을 검사한 적 있는지?)
+	# cached_result = check_redis(request.url)
+	# if cached_result: return cached_result
+	
+	# 2. ai 모델 로드 및 추론(s3에서 가져온 lightgbm 사용)
+	# ai_score = my_ml_model.predict(request.url)
+	
+	# 3. RDS 데이터베이스에 스캔 기록 저장
+	# save_to_db(request.url, request.device_id, ai_score)
+	
+	#---------
+	
+	# 지금은 연습이니까 'bad'가 들어가면 무조건 악성이라 치는 가짜 로직
+	is_bad = "bad" in request.url.lower()
+	risk_score = 0.99 if is_bad else 0.05
+	
+	# 프론트엔드에 결과(Response)를 돌려줌
+	return ScanResponse(
+		url=request.url,
+		is_malicious=is_bad,
+		score=risk_s)
 ```
