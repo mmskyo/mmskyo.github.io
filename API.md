@@ -64,5 +64,16 @@ async def scan_url_api(request: ScanRequest):
 	return ScanResponse(
 		url=request.url,
 		is_malicious=is_bad,
-		score=risk_s)
+		score=risk_score
+	)
 ```
+
+4. 서버 실행
+```bash
+uvicorn main:app --reload
+```
+
+
+질문 -
+그럼 url을 스캔하면 제일 먼저 redis cache를 확인하는거야? 로컬은? 
+그니까 스캔했는데 화이트리스트에 있다하면 바로 답해주고 미지의 url(히스토리에 없는거)이면 클라우드 진입 후 
