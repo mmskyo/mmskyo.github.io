@@ -65,3 +65,5 @@ phishing-detector-bucket/ 
 ```
 
 # 전체 백엔드 아키텍처
+안드로이드 - 클라이언트
+CameraX + ML Kit
