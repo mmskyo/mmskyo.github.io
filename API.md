@@ -26,7 +26,23 @@ class ScanResponse(BaseModel):
 ```
 
 3. 서버 코드 작성 - API 엔드 포인트
-main.py 생성
+main.py 생성하고,
+사용자가 접속할 수 있는 '주소(EndPoint)'를 만들어준다.
+내 아키텍처에 따라서 Redis 확인 -> ai 추론 -> db 저장 흐름
 ```python
-from fastapi import FastAP
+from fastapi import FastAPI
+
+# FastAPI 앱 생성 (서버의 심장)
+app = FastAPI()
+
+# POST 방식으로 '/v1/scan' 이라는 주소를 뚫어줌
+@app.post("/v1/scan?, response_model=ScanResponse)
+async def scan_url_api(request: ScanRequest):
+
+	#----------
+	# [다이어그램 3단계: 비즈니스 로직 & 데이터 처리]
+	# 실제 현업이라면 여기에 아래와 같은 로직이 들어감
+	#----------
+	
+	# 1. Redis 캐시 확인 (이전에 똑같은)
 ```
