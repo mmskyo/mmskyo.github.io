@@ -273,3 +273,16 @@ return user  # ORM → JSON
 참고: https://devspoon.tistory.com/308
 
 
+# 데이터베이스란..
+1. RDBMS vs PostgreSQL (카테고리 vs 브랜드)
+rdbms의 종류이다..
+이게 rds 구역에 설치되는 진짜 데이터베이스 엔진
+
+2. ORM vs SQLAlchemy (기술개념 vs 도구)
+백엔드 코드와 db를 연결하는 부분
+- orm;object relational mapping : 
+		객체object와 관계relational를 연결mapping한다 는 기술적 개념
+		파이썬의 Class와 DB의 Table을 똑같이 생기게 만들어서 sql을 몰라도 파이썬 코드로 db를 다룰 수 있게 해주는 마법같은 방법론
+- SQLAlchemy: 파이썬에서 orm을 구현할 수 있게 도와주는 가장 유명한 라이브러리
+		백엔드구현: 파이썬으로 User.save()라고 쓰면 알케미가 이걸 INSERT INTO users 라는 sql문으로 번역해서 PostgreSQL에게 전달
+
