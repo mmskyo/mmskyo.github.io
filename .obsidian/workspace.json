@@ -93,7 +93,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "e4148a1aaae4ca64",
@@ -200,7 +201,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "13b9135a5a764f9c",
+  "active": "7684cc0fc629bd69",
   "lastOpenFiles": [
     "docs/projects/API.md",
     "docs/projects/android/android.md",
