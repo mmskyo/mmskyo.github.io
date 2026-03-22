@@ -76,3 +76,7 @@ processing → 5초 간격
 almost_done → 2초 간격
 결과 나오면 종료 - 불필요한 요청 제거
 고급) 웹소켓/sse - gateway제한 영향 거의 없음
+
+# 상태 코드
+http 상태 코드 - 요청 자체 성공/실패 ex. 200
+바디에 있는 status - 작업 진행 상태 ex. processing
