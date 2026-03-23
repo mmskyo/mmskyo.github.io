@@ -41,16 +41,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/cybersecurity/maliciouscode/Untitled.md",
+                "file": "docs/cybersecurity/maliciouscode/index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Untitled"
+              "title": "index"
+            }
+          },
+          {
+            "id": "9c39c71123ef4d0d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/cybersecurity/maliciouscode/윈보악3.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "윈보악3"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -107,7 +121,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 264.5,
+    "collapsed": true
   },
   "right": {
     "id": "e4148a1aaae4ca64",
@@ -214,16 +229,17 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "13b9135a5a764f9c",
+  "active": "9c39c71123ef4d0d",
   "lastOpenFiles": [
+    "docs/cybersecurity/maliciouscode/index.md",
+    "docs/cybersecurity/maliciouscode/윈보악3.md",
+    "docs/cybersecurity/forensic/forensic.md",
     "docs/projects/android/android.md",
-    "docs/cybersecurity/maliciouscode/Untitled.md",
     "docs/cybersecurity/maliciouscode",
     "docs/projects/backend.md",
     "docs/projects/API.md",
     "docs/projects/android",
     "docs/cybersecurity/index.md",
-    "docs/cybersecurity/forensic/forensic.md",
     "docs/projects/blog.md",
     "docs/projects/CICD.md",
     "docs/projects/Database.md",
