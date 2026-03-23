@@ -93,3 +93,18 @@ enum class CupcakeScreen() {
 ```
 ### 앱에 NavHost 추가
 지정된 경로를 기반으로 다른 컴포저블 대상을 표시하는 컴포저블
+경로가 flavor인 경우
+navhost는 컵케이크맛 선택하는 화면을 표시
+경로가 summary면 앱에는 요약화면
+문법
+```
+NavHost(
+	navController,
+	startDestination,
+	modifier,
+) {
+	content
+}
+```
+- navController: NavHostController 클래스의 인스턴스, navigate() 메소드를 호출하여 다른 대상으로 이동
+- 
