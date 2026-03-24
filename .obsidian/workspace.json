@@ -63,8 +63,7 @@
               "title": "윈보악3"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -229,13 +228,13 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "9c39c71123ef4d0d",
+  "active": "92950c9cd58678c0",
   "lastOpenFiles": [
-    "docs/projects/backend.md",
+    "docs/projects/android/android.md",
     "docs/cybersecurity/maliciouscode/윈보악3.md",
+    "docs/projects/backend.md",
     "docs/cybersecurity/maliciouscode/index.md",
     "docs/cybersecurity/forensic/forensic.md",
-    "docs/projects/android/android.md",
     "docs/cybersecurity/maliciouscode",
     "docs/projects/API.md",
     "docs/projects/android",

@@ -80,3 +80,10 @@ almost_done → 2초 간격
 # 상태 코드
 http 상태 코드 - 요청 자체 성공/실패 ex. 200
 바디에 있는 status - 작업 진행 상태 ex. processing
+
+# 4주차 클라우드 질문
+1. api gateway 호출 제한
+2. 상태값 정의 init(콜드스타트시 프리워밍), queued, analyzing_ml, analyzing_vt, completed, failed 이렇게 괜찮을까요?
+3. 스캔 검사 기능은 콜드 스타트나 ml분석때문에 시간이 좀 걸릴까봐 응답에 상태값 포함하고싶은데 추가해도 괜찮을까요?
+4. lambda 함수별 타임아웃 설정
+5. lambda 비동기 처리 방식
