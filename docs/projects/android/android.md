@@ -111,3 +111,12 @@ NavHost(
 # 뷰 바인딩
 findviewbyid 이제 안쓴다. ui 요소를 안전하고 편하게 가져오기 위해 view binding 사용
 build.gradle.kts(module:app)에 설정 추가
+
+
+# 초기 세팅
+1. 리포지토리 클론
+2. 안드로이드 스튜디오에서 뉴프로젝트를 클론한 파일 경로에 만들기
+3. gitignore 수정
+4. local properties 예시 파일 만들기 (그레이들 파일에도 추가)
+5. 첫 커밋
+6. develop 브랜치 생성
