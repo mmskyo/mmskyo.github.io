@@ -121,60 +121,57 @@ build.gradle.kts(module:app)에 설정 추가
 5. 첫 커밋
 6. develop 브랜치 생성
 
+# 라이브러리 설정 ( 의존성 추가 )
 libs.versions.toml 에서  라이브러리 추가 후 app/build.gradle.kts에서 실제 사용 선언
 
 ## libs.versions.toml
-```
-[versions]
-# 기존 것들 유지하고 아래만 추가
-retrofit = "2.11.0"
-okhttp = "4.12.0"
-hilt = "2.51.1"
-room = "2.6.1"
-camera = "1.3.4"
-mlkit-barcode = "17.3.0"
-kakao = "2.20.0"
-security-crypto = "1.1.0-alpha06"
-navigation = "2.7.7"
-lifecycle = "2.8.2"
-coroutines = "1.8.0"
-
-[libraries]
-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "camera" }
-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "camera" }
-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "camera" }
-mlkit-barcode = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "mlkit-barcode" }
-kakao-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "security-crypto" }
-browser = { group = "androidx.browser", name = "browser", version = "1.8.0" }
-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
-
-[plugins]
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
-```
 
 캐쉬 문제있을 때 invalidate caches
 
 # build config field
 defaultconfig 안에
 ```
+buildConfigField("String", "BASE_URL", "\"https://localhost/\"")
+//               타입      변수명       값
+```
+빌드할 때 코드안에 상수를 주입하는 함수
+
+이렇게 하면 자동으로 gradle이 buildConfig.java파일을 생성
+```
+// 자동 생성되는 파일 (건드릴 필요 없음)
+public final class BuildConfig {
+    public static final String BASE_URL = "https://localhost/";
+}
+```
+코드 어디서나 이렇게 사용
+```
+// NetworkModule.kt
+Retrofit.Builder()
+    .baseUrl(BuildConfig.BASE_URL)  // ← 여기서 사용
+    .build()
+```
+
+```
 buildConfigField(  
     "String", "BASE_URL",  
     "\"${localProperties.getProperty("BASE_URL") ?: "https://localhost/"}\""  
 )
 ```
-여기서 localhost는 fallback!
+여기서 localhost는 fallback 기본값이다.
+base url이 없을 때만 저것을 실행
+**url을 하드코딩하면 안되기에 빌드컨픽을 쓴다**
+
+# 디렉토리 설정
+
+## MVVM 아키텍처
+```
+사용자가 QR 스캔
+    ↓
+ui/         → 화면 표시 (Fragment, ViewModel)
+    ↓
+domain/     → 비즈니스 규칙 (어떤 데이터가 필요한지)
+    ↓
+data/       → 실제 데이터 가져오기 (서버 호출, DB)
+    ↓
+di/         → 위 레이어들을 연결해주는 접착제 (Hilt)
+```
