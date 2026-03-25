@@ -121,6 +121,8 @@ build.gradle.kts(module:app)에 설정 추가
 5. 첫 커밋
 6. develop 브랜치 생성
 
+libs.versions.toml 에서  라이브러리 추가 후 app/build.gradle.kts에서 실제 사용 선언
+
 ## libs.versions.toml
 ```
 [versions]
