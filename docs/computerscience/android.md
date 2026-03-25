@@ -170,7 +170,10 @@ git push origin main
 ```
 
 디벨롭 브랜치
-
+```
+git checkout -b develop
+git push origin develop
+```
 
 # 디렉토리 설정
 
