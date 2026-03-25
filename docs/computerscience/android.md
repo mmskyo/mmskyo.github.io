@@ -191,3 +191,78 @@ di/         → 위 레이어들을 연결해주는 접착제 (Hilt)
 ```
 
 # 의존성 라이브러리
+아, 표로 정리해달라는 거죠!
+
+---
+
+### 라이브러리 의존성 설명
+
+|카테고리|라이브러리|버전|역할|
+|---|---|---|---|
+|**기본**|core-ktx|1.13.1|Kotlin Android 확장 함수 모음. `context.toast()` 같은 편의 기능 제공|
+|**기본**|appcompat|1.7.0|구버전 Android 호환성 지원. Activity, Fragment 기본 기능|
+|**기본**|material|1.12.0|Google Material Design 컴포넌트. 버튼, 카드, 다이얼로그 등|
+|**기본**|activity|1.9.3|Activity 관련 최신 기능. `registerForActivityResult` 등|
+|**기본**|constraintlayout|2.2.0|XML 레이아웃에서 뷰 위치를 유연하게 배치|
+|**네트워크**|retrofit|2.11.0|서버 API 호출 라이브러리. `@GET`, `@POST` 어노테이션으로 API 정의|
+|**네트워크**|retrofit-gson|2.11.0|Retrofit이 JSON 응답을 Kotlin 데이터 클래스로 자동 변환|
+|**네트워크**|okhttp|4.12.0|Retrofit 아래에서 실제 HTTP 통신을 담당|
+|**네트워크**|okhttp-logging|4.12.0|디버그 시 네트워크 요청/응답을 로그로 출력. 개발할 때 필수|
+|**DI**|hilt-android|2.52|의존성 주입 프레임워크. `@Inject`로 객체를 자동으로 생성/주입|
+|**DI**|hilt-compiler|2.52|Hilt가 컴파일 시 주입 코드를 자동 생성하기 위한 컴파일러|
+|**로컬 DB**|room-runtime|2.6.1|Android 로컬 DB. 화이트리스트, 즐겨찾기 캐시 저장|
+|**로컬 DB**|room-ktx|2.6.1|Room에 코루틴 지원 추가. `suspend fun` 으로 DB 조회 가능|
+|**로컬 DB**|room-compiler|2.6.1|Room이 `@Dao` 어노테이션으로 DB 코드를 자동 생성하기 위한 컴파일러|
+|**카메라**|camera-camera2|1.4.1|CameraX의 핵심. Camera2 API를 쉽게 사용할 수 있게 래핑|
+|**카메라**|camera-lifecycle|1.4.1|카메라를 Activity/Fragment 생명주기에 맞게 자동 관리|
+|**카메라**|camera-view|1.4.1|XML에서 `PreviewView`로 카메라 미리보기 화면 표시|
+|**QR 스캔**|mlkit-barcode|17.3.0|Google ML Kit. 카메라 프레임에서 QR 코드를 실시간 인식/디코딩|
+|**인증**|kakao-user|2.20.1|카카오 로그인 SDK. 카카오 계정으로 로그인 후 토큰 발급|
+|**보안**|security-crypto|1.1.0-alpha06|JWT 토큰을 AES256으로 암호화해서 SharedPreferences에 저장|
+|**브라우저**|browser|1.8.0|Custom Tabs. Safe URL을 앱 안에서 브라우저처럼 열기|
+|**네비게이션**|navigation-fragment|2.8.5|Fragment 간 화면 이동 관리. `nav_graph.xml`로 흐름 정의|
+|**네비게이션**|navigation-ui|2.8.5|BottomNavigationView와 NavController 연결|
+|**라이프사이클**|lifecycle-viewmodel|2.8.7|ViewModel 제공. 화면 회전해도 데이터 유지|
+|**라이프사이클**|lifecycle-runtime|2.8.7|`lifecycleScope`, `repeatOnLifecycle` 등 코루틴 생명주기 연동|
+|**코루틴**|coroutines-android|1.9.0|비동기 처리. 서버 호출, DB 조회를 메인 스레드 차단 없이 처리|
+
+---
+
+### 컴파일러 계열 따로 정리
+
+`ksp()`로 선언하는 것들은 런타임에 동작하는 게 아니라 **빌드 시 코드를 자동 생성**하는 도구
+
+|선언 방식|라이브러리|하는 일|
+|---|---|---|
+|`ksp(libs.hilt.compiler)`|Hilt 컴파일러|`@HiltViewModel`, `@Inject` 어노테이션 처리해서 DI 코드 자동 생성|
+|`ksp(libs.room.compiler)`|Room 컴파일러|`@Dao`, `@Entity` 어노테이션 처리해서 DB 접근 코드 자동 생성|
+
+---
+
+### 이 라이브러리들이 QR Shield에서 어떻게 연결되냐면
+
+```
+사용자가 QR 코드를 카메라에 비춤
+    ↓
+[camera-camera2 + camera-view]   카메라 프리뷰 표시
+    ↓
+[mlkit-barcode]                  QR 코드 인식 → URL 추출
+    ↓
+[coroutines]                     비동기로 서버 호출
+    ↓
+[retrofit + okhttp]              클라우드팀 API Gateway에 URL 전송
+    ↓
+[gson]                           JSON 응답 → ScanResult 데이터 클래스 변환
+    ↓
+[lifecycle-viewmodel]            결과를 ViewModel이 보관
+    ↓
+[navigation]                     결과 화면으로 이동
+    ↓
+[browser]                        Safe URL이면 Custom Tabs로 열기
+    ↓
+[room]                           Safe URL을 로컬 화이트리스트에 저장
+    ↓
+[security-crypto]                JWT 토큰 암호화 저장
+    ↓
+[hilt]                           위 모든 객체를 자동으로 연결
+```
