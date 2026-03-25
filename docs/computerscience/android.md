@@ -167,3 +167,4 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
 ```
 
+캐쉬 문제있을 때 invalidate caches
