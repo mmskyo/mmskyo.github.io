@@ -168,3 +168,13 @@ navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref 
 ```
 
 캐쉬 문제있을 때 invalidate caches
+
+# build config field
+defaultconfig 안에
+```
+buildConfigField(  
+    "String", "BASE_URL",  
+    "\"${localProperties.getProperty("BASE_URL") ?: "https://localhost/"}\""  
+)
+```
+여기서 localhost는 fallback!
