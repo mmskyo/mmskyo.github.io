@@ -161,6 +161,17 @@ buildConfigField(
 base url이 없을 때만 저것을 실행
 **url을 하드코딩하면 안되기에 빌드컨픽을 쓴다**
 
+# 커밋
+첫 커밋
+```
+git add .
+git commit -m "chore: Android 프로젝트 초기 세팅"
+git push origin main
+```
+
+디벨롭 브랜치
+
+
 # 디렉토리 설정
 
 ## MVVM 아키텍처
