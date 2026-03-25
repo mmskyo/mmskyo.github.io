@@ -107,4 +107,7 @@ NavHost(
 }
 ```
 - navController: NavHostController 클래스의 인스턴스, navigate() 메소드를 호출하여 다른 대상으로 이동
-- 
+
+# 뷰 바인딩
+findviewbyid 이제 안쓴다. ui 요소를 안전하고 편하게 가져오기 위해 view binding 사용
+build.gradle.kts(module:app)에 설정 추가
