@@ -27,7 +27,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/projects/android/android.md",
+                "file": "docs/computerscience/android.md",
                 "mode": "source",
                 "source": false
               },
@@ -107,8 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 264.5,
-    "collapsed": true
+    "width": 264.5
   },
   "right": {
     "id": "e4148a1aaae4ca64",
@@ -215,12 +214,12 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "7684cc0fc629bd69",
+  "active": "13b9135a5a764f9c",
   "lastOpenFiles": [
     "docs/cybersecurity/maliciouscode/윈보악3.md",
     "docs/cybersecurity/maliciouscode/index.md",
     "docs/projects/backend.md",
-    "docs/projects/android/android.md",
+    "docs/computerscience/android.md",
     "docs/cybersecurity/forensic/forensic.md",
     "docs/cybersecurity/maliciouscode",
     "docs/projects/API.md",

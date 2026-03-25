@@ -1,6 +1,6 @@
 ---
 title: android
-parent: android
+parent: computerscience
 nav_order: 2
 ---
 ---
