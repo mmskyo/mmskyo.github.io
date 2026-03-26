@@ -271,3 +271,50 @@ di/         → 위 레이어들을 연결해주는 접착제 (Hilt)
     ↓
 [hilt]                           위 모든 객체를 자동으로 연결
 ```
+
+### 전체 화면 목록
+
+| 화면              | Fragment 이름             | 설명                       |
+| --------------- | ----------------------- | ------------------------ |
+| 스플래시            | SplashFragment          | Q-Guard 로고 + 시스템 시작하기 버튼 |
+| 로그인             | LoginFragment           | 이메일/비밀번호 로그인             |
+| 회원가입            | RegisterFragment        | 이메일/비밀번호/닉네임 입력          |
+| 스캔              | ScanFragment            | CameraX QR 스캔 화면 (메인)    |
+| 보안 엔진 검사 중      | ScanningFragment        | 분석 중 로딩 화면               |
+| 결과 - 안심 등록된 연결  | ResultWhitelistFragment | 화이트리스트 히트 시              |
+| 결과 - 위험 차단됨     | ResultBlockedFragment   | BLOCKED 판정 시             |
+| 결과 - 안전/검사 통과   | ResultSecuredFragment   | SECURED/SUSPICIOUS 판정 시  |
+| 보안 로그 대시보드      | LogsFragment            | 스캔 이력 + 통계               |
+| 안심 URL (화이트리스트) | WhitelistFragment       | 안심 URL 목록 관리             |
+
+---
+
+### Nav Graph 흐름---
+
+### nav_graph.xml에 넣을 Fragment 목록
+
+```
+SplashFragment          → 시작 화면
+LoginFragment           → 로그인
+RegisterFragment        → 회원가입
+ScanFragment            → 메인 스캔 (바텀 탭)
+ScanningFragment        → 분석 중 로딩
+ResultWhitelistFragment → 안심 등록된 연결
+ResultSecuredFragment   → SECURED / SUSPICIOUS 결과
+ResultBlockedFragment   → BLOCKED 위험 차단
+LogsFragment            → 보안 로그 대시보드 (바텀 탭)
+WhitelistFragment       → 안심 URL 목록 (바텀 탭)
+ProfileFragment         → 내 정보 (바텀 탭)
+```
+
+---
+
+### 핵심 흐름 정리
+
+**앱 시작 시** — 토큰 유효하면 Splash → Scan, 없으면 Splash → Login
+
+**스캔 흐름** — 로컬 화이트리스트 히트 시 Scanning 건너뛰고 ResultWhitelist로 바로 이동, 아니면 Scanning → 결과 3갈래
+
+**신고하기** — Logs 화면에서 특정 로그 탭 → 신고 다이얼로그 (별도 Fragment보다 Dialog 방식 추천)
+
+**로그아웃** — Profile → 로그아웃 → JWT 삭제 → Login으로 popUpTo 전체 백스택 클리어
