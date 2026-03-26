@@ -58,3 +58,21 @@ git fetch --all
 - **`git pull`**: 우체국에 가서 편지를 **가져와서 내 책상(로컬 코드)에 합쳐버리는 것.**
 
 **순서:** 코드 수정 → `git add` (담기) → `git commit` (내 컴퓨터 저장) → `git push` (GitHub에 올리기)
+
+# 정리
+```
+# 1. 새 브랜치 만들기 (내 위치 이동)
+git checkout -b feature/login
+
+# 2. 코드 열심히 수정하기 (VS Code 등에서 작업)
+
+# 3. 상태 확인 (뭐 고쳤더라?)
+git status
+
+# 4. 바구니에 담고 내 컴퓨터에 저장
+git add .
+git commit -m "로그인 기능 UI 완성"
+
+# 5. 드디어 GitHub에 올리기 (처음이면 -u 붙이기)
+git push -u origin feature/login
+```
