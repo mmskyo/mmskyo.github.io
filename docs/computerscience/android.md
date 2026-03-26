@@ -318,3 +318,4 @@ ProfileFragment         → 내 정보 (바텀 탭)
 **신고하기** — Logs 화면에서 특정 로그 탭 → 신고 다이얼로그 (별도 Fragment보다 Dialog 방식 추천)
 
 **로그아웃** — Profile → 로그아웃 → JWT 삭제 → Login으로 popUpTo 전체 백스택 클리어
+
