@@ -7,6 +7,10 @@ parent: PCD
 feat/login
 
 # 2. local.properties에 url 입력 후 리빌드
+리빌드 명령어
+```
+./gradlew clean build
+```
 
 # 3. AndroidManifest.xml 권한 추가
 
