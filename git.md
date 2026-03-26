@@ -25,3 +25,15 @@ git merge develop
 git push origin main
 git checkout develop
 ```
+
+```
+# develop 브랜치로 이동
+git checkout develop
+
+# 최신 상태로 업데이트
+git pull origin develop
+
+# feature 브랜치 생성
+git checkout -b feature/login
+```
+
