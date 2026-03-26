@@ -33,7 +33,16 @@ git checkout develop
 # 최신 상태로 업데이트
 git pull origin develop
 
-# feature 브랜치 생성
+# feature 브랜치 생성 (내 컴퓨터에서만)
 git checkout -b feature/login
+
+# 깃허브 서버로 복사해서 만든 브랜치 전달
+git push -u origin feature/login
+
+# 브랜치 확인
+git branch -a
+
+# 편집모드 나가기 q 스페이스 다음페이지 
+
 ```
 
