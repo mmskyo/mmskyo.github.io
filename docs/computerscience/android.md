@@ -334,9 +334,15 @@ ProfileFragment         → 내 정보 (바텀 탭)
 org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m
 ```
 2. invalidate caches
+현재 프로젝트의 빌드 찌꺼기만 삭제하는 명령어
 ```
 ./gradlew clean
 ```
-cf. 
+cf. embedded ones까지 지우면 그레이들 파일까지 삭제되는 경우가 있음(경험담)
+local history는 깃에 커밋을 했다면 안전
 
 ---
+## DexMergingTaskDelegate
+MultiDex 또는 라이브러리 충돌 문제
+안드로이드는 내가 짠 코드를 DEX라는 파일로 변환해서 앱에 담는다.
+그러나 담으려는 코드가 너무 커서 터지거나
