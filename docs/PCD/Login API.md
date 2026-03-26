@@ -11,7 +11,10 @@ feat/login
 ```
 ./gradlew clean build
 ```
-
+참고: 캐시 지우기
+```
+./gradlew clean
+```
 # 3. AndroidManifest.xml 권한 추가
 
 ### 체크 할 점

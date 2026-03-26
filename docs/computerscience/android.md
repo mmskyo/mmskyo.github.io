@@ -319,3 +319,9 @@ ProfileFragment         → 내 정보 (바텀 탭)
 
 **로그아웃** — Profile → 로그아웃 → JWT 삭제 → Login으로 popUpTo 전체 백스택 클리어
 
+# 에러
+## java heap space
+
+```
+org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m
+```

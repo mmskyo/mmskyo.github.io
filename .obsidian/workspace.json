@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/PCD/Login API.md",
+                "file": "docs/computerscience/android.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Login API"
+              "title": "android"
             }
           },
           {
@@ -258,8 +258,8 @@
   },
   "active": "411ad7b4d6139e1d",
   "lastOpenFiles": [
-    "docs/PCD/index.md",
     "docs/PCD/Login API.md",
+    "docs/PCD/index.md",
     "git.md",
     "docs/PCD",
     "docs/todo/할일 리스트.md",
