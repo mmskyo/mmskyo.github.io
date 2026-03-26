@@ -244,8 +244,9 @@
   },
   "active": "61125c0483a9c084",
   "lastOpenFiles": [
-    "docs/todo/할일 리스트.md",
+    "index.md",
     "git.md",
+    "docs/todo/할일 리스트.md",
     "docs/computerscience/android.md",
     "docs/todo",
     "docs/cybersecurity/maliciouscode/윈보악3.md",
@@ -272,7 +273,6 @@
     "Pasted image 20260315202514.png",
     "Pasted image 20260315200406.png",
     "api_spec_v1.html",
-    "index.md",
     "docs/computerscience/index.md"
   ]
 }
