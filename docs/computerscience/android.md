@@ -320,8 +320,23 @@ ProfileFragment         → 내 정보 (바텀 탭)
 **로그아웃** — Profile → 로그아웃 → JWT 삭제 → Login으로 popUpTo 전체 백스택 클리어
 
 # 에러
+---
 ## java heap space
-
+: gradle이 빌드 작업을 하는데, 사용할 수 있는 메모리(램)이 꽉 찼다.
+#### 이유
+	1. 프로젝트 규모 확장: 코드가 늘어나거나 라이브러리를 추가하면서 빌드 시 필요한 메모리가 한계점을 넘음
+	2. 캐시 누적: 빌드가 반복되면서 메모리 찌꺼기가 남을 때
+	3. 이미지/리소스 추가: 고화질 이미지 많이 넣을 시 빌드할 때 메모리를 엄청 잡아먹음
+#### 해결방안
+1. gradle.properties 파일에서 메모리 사용량 늘리기
+-Xmx4g  : 4기가바이트까지 메모리를 쓰겠다 (보통 512mb~1gb)
 ```
 org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m
 ```
+2. invalidate caches
+```
+./gradlew clean
+```
+cf. 
+
+---
