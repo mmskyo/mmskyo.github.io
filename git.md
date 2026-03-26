@@ -18,3 +18,10 @@ git checkout develop
 git merge feature/android-base-setup
 git push origin develop
 ```
+
+```
+git checkout main
+git merge develop
+git push origin main
+git checkout develop
+```
