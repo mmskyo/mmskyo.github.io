@@ -1178,3 +1178,98 @@ pytest tests/ -v
 - [ ] 응답 필드명 오타 없는지 확인 (snake_case)
 - [ ] 에러 응답 처리 (401, 422 등)
 - [ ] 네트워크 없을 때 처리
+
+
+---
+
+## 현재 완료된 것
+
+```
+Phase 0 — 환경 세팅 ✅
+  ✅ GitHub 리포 생성 (Q-Guarder-App, Private)
+  ✅ Android 프로젝트 초기 세팅
+  ✅ libs.versions.toml + build.gradle 설정
+  ✅ 패키지 구조 생성 (ui/data/domain/di)
+  ✅ nav_graph.xml + bottom_nav_menu.xml
+  ✅ Fragment 11개 + XML 레이아웃 전체
+  ✅ Domain Model (RiskLevel, ScanResult 등)
+  ✅ AppDatabase (Room — Whitelist, FavoritesCache)
+  ✅ TokenManager (EncryptedSharedPreferences)
+  ✅ AuthRepository
+  ✅ ApiService.kt (전체 엔드포인트)
+  ✅ NetworkModule + DatabaseModule (Hilt DI)
+  ✅ AuthInterceptor (토큰 자동 주입)
+  ✅ AndroidManifest.xml (권한 추가)
+  ✅ develop → main merge 완료
+
+feature/login 진행 중 🔄
+  ✅ 화면 이동 (스플래시→로그인→회원가입) 확인
+  ✅ 회원가입 서버 연동 성공
+  ❌ 로그인 500 에러 (클라우드팀 수정 중)
+  ⬜ 로그인 성공 후 ScanFragment 이동
+  ⬜ SplashFragment 자동 로그인 분기
+  ⬜ ProfileFragment 로그아웃 연동
+```
+
+---
+
+## 앞으로의 계획 (4월 말까지)
+
+```
+3월 말 — feature/login 마무리
+  □ 로그인 연동 성공
+  □ 자동 로그인 (SplashFragment)
+  □ 로그아웃 연동
+  □ develop PR + merge
+
+4월 1주 (3/29~4/4) — feature/scan
+  □ ScanFragment CameraX 실제 QR 인식 테스트
+  □ ScanViewModel 캐시 히트 로직 확인
+     (Whitelist → Favorites → 서버 순서)
+  □ ScanningFragment 서버 연동
+     (POST /api/v1/scan/url)
+  □ ResultWhitelistFragment (캐시 히트 결과)
+  □ ResultSecuredFragment (SECURED/SUSPICIOUS)
+  □ ResultBlockedFragment (BLOCKED)
+  □ develop PR + merge
+
+4월 2주 (4/5~4/11) — feature/logs
+  □ LogsFragment 서버에서 스캔 이력 조회
+     (GET /api/v1/users/me/scan-logs)
+  □ 통계 카드 (안전/위험 건수)
+  □ 신고하기 버튼 연동
+     (POST /api/v1/report)
+  □ develop PR + merge
+
+4월 3주 (4/12~4/18) — feature/favorites
+  □ FavoritesFragment 즐겨찾기 목록
+     (GET /api/v1/users/me/bookmarks)
+  □ 결과 화면에서 즐겨찾기 추가/삭제
+     (POST/DELETE /api/v1/users/me/bookmarks)
+  □ FavoritesCache Room DB 서버 동기화
+  □ develop PR + merge
+
+4월 4주 (4/19~4/25) — feature/profile + UI 폴리싱
+  □ ProfileFragment 유저 정보 표시
+     (GET /api/v1/users/me)
+  □ 로그아웃 실제 동작
+  □ Whitelist 관리 화면
+  □ 전체 화면 UI 통일 (폰트/여백/색상)
+  □ 스플래시 애니메이션 수정
+  □ 버튼 클릭 효과 전체 적용
+  □ develop → main 최종 merge
+```
+
+---
+
+## 우선순위 요약
+
+```
+당장 이번 주    로그인 fix 대기 → 로그인/로그아웃 완료
+다음 주        QR 스캔 → 결과 화면 (핵심 기능)
+4월 2주        스캔 로그 + 신고
+4월 3주        즐겨찾기
+4월 4주        프로필 + UI 마무리
+```
+
+클라우드팀 서버 진행 속도에 따라 스캔 기능이 제일 중요하니까, 로그인 되는 대로 바로 스캔으로 넘어가는 게 좋아요!
