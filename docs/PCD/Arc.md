@@ -45,5 +45,14 @@ data class BookmarkDto(
 	@SerializedName("bookmark_id") val bookmarkId: String,
 	val url: String,
 	val title: String?,
-	@SerializedName("risk_level") val riskLevel: String)
- 
+	@SerializedName("risk_level") val riskLevel: String,
+	@SerializedName("created_at") val createdAt: String,
+)
+```
+
+## 3. ApiService에 엔드포인트 추가
+서버 어디에 요청할까?
+```
+// data/remote/ApiService.kt
+@GET("api)
+```
