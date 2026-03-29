@@ -86,7 +86,27 @@ data class BookmarkDto(
           ↑                              ↑
     서버 JSON 키                   코틀린 변수명
 ```
+	- 직렬화 병렬화는?
+```
+직렬화 (Serialization)
+→ 코틀린 객체를 JSON 문자열로 변환
+→ 서버에 보낼 때
 
+Bookmark(url = "https://example.com")
+         ↓ 직렬화
+{"url": "https://example.com"}
+
+역직렬화 (Deserialization)
+→ JSON 문자열을 코틀린 객체로 변환
+→ 서버에서 받을 때
+
+{"bookmark_id": "abc", "risk_level": "SECURED"}
+         ↓ 역직렬화
+BookmarkDto(bookmarkId = "abc", riskLevel = "SECURED")
+
+Gson 라이브러리가 이걸 자동으로 해줘요
+@SerializedName이 연결고리 역할
+```
 ## 3. ApiService에 엔드포인트 추가
 서버 어디에 요청할까?
 ```kotlin
@@ -105,6 +125,48 @@ suspend fun deleteBookmark(
 ): Response<Unit>
 ```
 
+질문
+```
+// 일반 함수
+fun getBookmarks() { }
+// → 호출하면 끝날 때까지 화면이 멈춰요
+
+// suspend 함수
+suspend fun getBookmarks() { }
+// → 서버 응답 기다리는 동안
+//   다른 작업 할 수 있어요 (화면 안 멈춤)
+// → viewModelScope.launch 안에서만 호출 가능
+
+
+// @ = "이거 특별한 역할 해줘" 라고 표시하는 것
+
+@GET         서버에 GET 요청
+@POST        서버에 POST 요청
+@DELETE      서버에 DELETE 요청
+@Body        요청 본문에 넣어
+@Path        URL 경로에 넣어
+@Query       URL 뒤에 ?key=value 형식으로 넣어
+@Inject      이거 자동으로 주입해줘
+@Singleton   이 클래스 하나만 만들어줘
+@HiltViewModel Hilt가 이 ViewModel 관리해줘
+@AndroidEntryPoint Hilt가 이 Fragment 관리해줘
+
+// 쿼리 형식은 항상 저 코드대로?
+// 형식은 API 명세서 보고 그대로 따라 쓰면됨(명세서에 get이면 get)
+
+// response가 뭐야?
+Response<BookmarksResponse>
+
+Response = 서버 응답 전체 (상태코드 + 바디)
+<>       = 안에 뭐가 들어있는지 표시
+
+Response<BookmarksResponse>
+→ 서버 응답 안에 BookmarksResponse가 들어있어
+
+response.isSuccessful  → 200번대인지 확인
+response.body()        → 실제 데이터 꺼내기
+response.code()        → 상태 코드 (200, 404, 500...)
+```
 ## 4단계 - Repository 작성
 서버 응답을 앱에서 쓸 수 있게 변환해줘.
 ```kotlin
