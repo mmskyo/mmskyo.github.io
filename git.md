@@ -69,6 +69,9 @@ git checkout -b feature/login
 # 3. 상태 확인 (뭐 고쳤더라?)
 git status
 
+# 다른 브랜치 작업 가져오기 merge or
+git cherry-pick [스캔작업_커밋_해시값]
+
 # 4. 바구니에 담고 내 컴퓨터에 저장
 git add .
 git commit -m "로그인 기능 UI 완성"
