@@ -137,5 +137,22 @@ sealed class FavoritesUiState {
 @HiltViewModel
 class FavoritesViewModel @Inject constructor (
 	private val bookmarkRepository: BookmarkRepository,
-): ViewModel() {}
+): ViewModel() {
+	private val _uiState = MutableStateFlow<FavoritesUiState>(  
+		FavoritesUiState.Loading 
+) 
+val uiState: StateFlow<FavoritesUiState> = _uiState.asStateFlow() 
+
+init { 
+	// ViewModel 생성되자마자 데이터 로드 
+	loadBookmarks() 
+} fun loadBookmarks() { 
+	viewModelScope.launch { 
+		_uiState.value = FavoritesUiState.Loading 
+		bookmarkRepository.getBookmarks().fold( 
+			onSuccess = { bookmarks -> 
+				_uiState.value = if (bookmarks.isEmpty()) { 
+					FavoritesUiState.Empty 
+				} else { FavoritesUiState.Success(bookmarks) } 
+			}, onFailure = { _uiState.value = FavoritesUiState.Error( it.message ?: "불러오기 실패" ) } ) } } }}
 ```
