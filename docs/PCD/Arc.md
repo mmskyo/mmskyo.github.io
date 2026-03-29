@@ -269,6 +269,40 @@ val repo = BookmarkRepository(apiService = ApiService())
 // Hilt가 알아서 만들어줘요
 // ApiService도 알아서 찾아서 넣어줘요
 
+return try catch문 왜?
+
+return try {
+    val response = apiService.getBookmarks()
+    Result.success(bookmarks)
+} catch (e: Exception) {
+    Result.failure(e)
+}
+
+// 서버 요청은 언제든 실패할 수 있어요
+// 인터넷 끊김, 서버 다운, 타임아웃...
+
+// try 안에서 에러 나면
+// catch가 잡아서 Result.failure로 반환
+// 앱이 그냥 죽지 않아요
+
+// try-catch 없으면
+// 에러 났을 때 앱이 강제 종료됨 (크래시)
+
+Unit이란?
+// Unit = "반환값 없음"
+// Java의 void랑 같아요
+
+suspend fun logout(): Unit
+// = logout은 뭔가를 반환하지 않아요
+//   그냥 실행만 해요
+
+// 코틀린에서는 반환값 없으면
+// 그냥 안 써도 되는데
+// Result<Unit> 처럼 쓸 때는 명시해줘야 해요
+
+Result<Unit>
+// = 성공/실패는 알려주는데
+//   성공했을 때 데이터는 없어요
 ```
 ## 5단계 - UiState 정의
 화면이 어떤 상태를 가질 수 있어?
@@ -283,7 +317,58 @@ sealed class FavoritesUiState {
 	data class Error(val message: String) : FavoritesUiState() 
 }
 ```
+질문
+```
+// sealed/object/data class/:콜론 ?
 
+sealed class FavoritesUiState {
+    object Loading : FavoritesUiState()
+    object Empty   : FavoritesUiState()
+    data class Success(val bookmarks: List<Bookmark>) : FavoritesUiState()
+    data class Error(val message: String) : FavoritesUiState()
+}
+
+// sealed = "이 클래스를 상속받을 수 있는 건
+//           여기 안에 정의된 것들뿐이야"
+
+// 장점
+// when문에서 모든 경우를 강제로 처리해야 해요
+when (state) {
+    is FavoritesUiState.Loading -> { }
+    is FavoritesUiState.Empty   -> { }
+    is FavoritesUiState.Success -> { }
+    is FavoritesUiState.Error   -> { }
+    // 하나라도 빠뜨리면 컴파일 에러!
+}
+
+// object
+// = 데이터 없이 상태만 표현할 때
+object Loading : FavoritesUiState()
+// Loading은 그냥 "로딩 중" 이라는 상태만 표현
+// 안에 데이터가 필요 없어요
+
+// data class
+// = 데이터를 들고 다닐 때
+data class Success(val bookmarks: List<Bookmark>)
+// Success는 북마크 목록을 들고 있어야 해요
+// 그래서 data class
+
+콜론이 뭐야?
+// 1. 타입 지정할 때
+val name: String = "Q-Guard"
+//       ↑ name은 String 타입이야
+
+// 2. 상속/구현할 때
+class FavoritesViewModel : ViewModel()
+//                        ↑ ViewModel을 상속받아
+
+object Loading : FavoritesUiState()
+//             ↑ FavoritesUiState의 자식이야
+
+// 3. 함수 반환 타입
+fun getBookmarks(): Result<List<Bookmark>>
+//                ↑ 이 함수는 Result<List<Bookmark>>를 반환해
+```
 ## 6. ViewModel 작성
 데이터를 가져와서 화면에 전달해줘 = 비즈니스 로직
 ```kotlin
@@ -317,7 +402,10 @@ init {
 	} 
 }}
 ```
+질문
+```
 
+```
 ## 7. XML 레이아웃 작성
 화면이 어떻게 생겼어?
 ```kotlin
