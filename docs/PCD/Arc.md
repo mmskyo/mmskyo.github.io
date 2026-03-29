@@ -259,8 +259,7 @@ class BookmarkRepository @Inject constructor(
     private val apiService: ApiService,
 )
 
-// @Inject constructor
-// = "내가 필요한 재료를 Hilt가 자동으로 줘"
+// @Inject constructor = "내가 필요한 재료를 Hilt가 자동으로 줘"
 
 // 일반적으로는 이렇게 직접 만들어야 해요
 val repo = BookmarkRepository(apiService = ApiService())
@@ -268,6 +267,33 @@ val repo = BookmarkRepository(apiService = ApiService())
 // @Inject constructor 붙이면
 // Hilt가 알아서 만들어줘요
 // ApiService도 알아서 찾아서 넣어줘요
+
+hilt가 뭐냐?
+앱을 만들다 보면
+클래스들이 서로를 필요로 해요
+
+FavoritesViewModel이 필요한 것
+→ BookmarkRepository
+
+BookmarkRepository가 필요한 것
+→ ApiService
+
+ApiService가 필요한 것
+→ OkHttpClient
+→ Retrofit
+
+이걸 직접 만들면 이렇게 돼요
+val okHttp = OkHttpClient()
+val retrofit = Retrofit(okHttp)
+val apiService = ApiService(retrofit)
+val repo = BookmarkRepository(apiService)
+val viewModel = FavoritesViewModel(repo)
+
+너무 복잡하죠?
+
+Hilt가 이걸 전부 자동으로 해줘요
+"내가 필요해" 라고 선언만 하면
+Hilt가 알아서 만들어서 넣어줘요
 
 return try catch문 왜?
 
