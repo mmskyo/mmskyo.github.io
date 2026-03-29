@@ -52,7 +52,7 @@ data class BookmarkDto(
 
 ## 3. ApiService에 엔드포인트 추가
 서버 어디에 요청할까?
-```
+```kotlin
 // data/remote/ApiService.kt
 @GET("api/v1/users/me/bookmarks")
 suspend fun getBookmarks(): Response<BookmarksResponse>
@@ -70,7 +70,7 @@ suspend fun deleteBookmark(
 
 ## 4단계 - Repository 작성
 서버 응답을 앱에서 쓸 수 있게 변환해줘.
-```
+```kotlin
 // data/remote/BookmarkRepository.kt
 @Singleton
 class BookmarkRepository @Inject constructor(
@@ -110,6 +110,12 @@ class BookmarkRepository @Inject constructor(
 				return Result.failure(Exception("추가 실패"))
 			}
 			Result.success(Unit)
-		} catche (e: Exception) {
-		}}
+		} catch (e: Exception) {
+			Result.Failure(e)
+		}
+	}
+}
 ```
+
+## 5단계 - UiState 정의
+화면이 어떤 상태를 가질 수 있어?
