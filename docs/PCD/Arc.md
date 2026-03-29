@@ -90,5 +90,26 @@ class BookmarkRepository @Inject constructor(
 					bookmarkId = it.bookmarkId,
 					url = it.url,
 					title = it.title,
-					riskLevel = )}}}
+					riskLevel = RiskLevel.from(it.riskLevel),
+					createdAt = it.createdAt,
+				)
+			}
+			Result.success(bookmarks)
+		} catch (e: Exception) {
+			Result.failure(e)
+		}
+	}
+	
+	// 즐겨찾기 추가
+	suspend fun addBookmark(url: String): Result<Unit> {
+		return try {
+			val response = apiService.addBookmark(
+				AddBookmarkRequest(url = url, title = null)
+			)
+			if (!response.isSuccessful) {
+				return Result.failure(Exception("추가 실패"))
+			}
+			Result.success(Unit)
+		} catche (e: Exception) {
+		}}
 ```
