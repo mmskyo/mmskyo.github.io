@@ -404,7 +404,40 @@ init {
 ```
 질문
 ```
+class FavoritesViewModel @Inject constructor(
+    private val bookmarkRepository: BookmarkRepository,
+) : ViewModel() {
+    // 여기 안에 ViewModel의 내용을 적어요
+    // 함수, 변수 다 여기에
+}
 
+// {} = 클래스의 본문 (몸통)
+// 모든 클래스는 {} 안에 내용을 담아요
+
+**변수명 앞에 _ 왜 붙여?**
+
+// 외부에서 직접 수정 못 하게 막으려고
+private val _uiState = MutableStateFlow(...)
+val uiState = _uiState.asStateFlow()
+
+// _uiState = 내부에서만 수정 가능 (private)
+//  uiState = 외부에서 읽기만 가능
+
+// Fragment에서
+viewModel.uiState   // ✅ 읽기 가능
+viewModel._uiState  // ❌ 접근 불가
+
+자주 쓰는 것들 
+.collect { } Flow 데이터 받아오기 
+.launch { } 코루틴 시작 
+.fold( 성공/실패 처리 
+	onSuccess = { }, 
+	onFailure = { } 
+) 
+.asStateFlow() 외부에서 읽기만 가능하게 
+.map { } 리스트 변환 
+
+다들 처음엔 공식문서 + 구글링 하면서 배워요 모르는 게 당연해요!
 ```
 ## 7. XML 레이아웃 작성
 화면이 어떻게 생겼어?
@@ -423,6 +456,10 @@ init {
     android:id="@+id/rv_bookmarks"
     android:visibility="gone" ... />
 ```
+recyclerview는 목록을 보여줄 때 쓰는 뷰
+일반 linear layout으로 목록 만들면 아이템 100개 다 메모리에 올라감
+리사이클러뷰는 화면에 보이는것만 메모리에 올림
+스크롤하면 안보이는건 재활용 recycle  예) 카카오톡 채팅 목록
 
 ---
 
@@ -472,6 +509,17 @@ class FavoritesFragment : Fragment() {
         }
     }
 }
+```
+
+질문
+```
+observeState는 꼭 저렇게 해야함?
+내가 (또는 팀이) 정한 이름이에요 업계 관례상 observe로 시작하는 경우가 많아요 
+observe = "관찰하다" → ViewModel의 상태를 관찰하고 바뀌면 화면 업데이트 
+observeUiState, collectState, setupObservers 이런 이름도 많이 써요 정해진 건 없어요
+
+lifecycle
+Fragment의 생명주기예요 Fragment도 태어나고 죽어요 onCreate → Fragment 생성됨 onStart → 화면에 보이기 시작 onResume → 사용자와 상호작용 가능 onPause → 다른 화면이 위에 올라옴 onStop → 화면에서 완전히 안 보임 onDestroy → Fragment 소멸 왜 중요해? → 화면이 안 보이는데도 데이터 계속 받으면 낭비거든요 repeatOnLifecycle(Lifecycle.State.STARTED) → 화면이 보일 때만 데이터 받고 안 보이면 자동으로 멈춰요
 ```
 
 ---
