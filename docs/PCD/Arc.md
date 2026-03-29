@@ -268,6 +268,25 @@ val repo = BookmarkRepository(apiService = ApiService())
 // Hilt가 알아서 만들어줘요
 // ApiService도 알아서 찾아서 넣어줘요
 
+// @Inject constructor = "Hilt야 나 만들어줘"
+
+class BookmarkRepository @Inject constructor(
+    private val apiService: ApiService,
+)
+
+// 이렇게 선언하면
+// BookmarkRepository가 필요한 곳에서
+// Hilt가 자동으로 만들어서 넣어줘요
+
+// ApiService도 어딘가에 @Inject constructor 있으면
+// Hilt가 ApiService도 자동으로 만들어서 넣어줘요
+
+// 도미노처럼 연결돼요
+FavoritesViewModel
+    → BookmarkRepository  (@Inject constructor)
+        → ApiService      (@Inject constructor)
+            → OkHttpClient (NetworkModule에서 제공)
+
 hilt가 뭐냐?
 앱을 만들다 보면
 클래스들이 서로를 필요로 해요
@@ -329,6 +348,21 @@ suspend fun logout(): Unit
 Result<Unit>
 // = 성공/실패는 알려주는데
 //   성공했을 때 데이터는 없어요
+
+cf. singleton이랑 inject constructor를 같이 쓰면?
+
+@Singleton  // 앱 전체에서 딱 하나만 만들어
+class BookmarkRepository @Inject constructor(
+    private val apiService: ApiService,
+)
+
+// @Singleton 없으면
+// 필요할 때마다 새로 만들어요
+// 비효율적이고 데이터가 따로 관리돼요
+
+// @Singleton 있으면
+// 처음 한 번만 만들고
+// 그 다음엔 같은 거 재사용해요
 ```
 ## 5단계 - UiState 정의
 화면이 어떤 상태를 가질 수 있어?
@@ -464,6 +498,17 @@ viewModel._uiState  // ❌ 접근 불가
 .map { } 리스트 변환 
 
 다들 처음엔 공식문서 + 구글링 하면서 배워요 모르는 게 당연해요!
+
+viewmodel을 상속받은게 끝이 아니고 왜 또 {}안에 내가 내용을 추가해야함?
+class FavoritesViewModel : ViewModel() { 
+	// 여기가 FavoritesViewModel만의 내용 
+	// ViewModel 기능 + 내가 추가하는 것들 private val _uiState = ... 
+	// 내가 추가한 변수 fun loadBookmarks() { } 
+	// 내가 추가한 함수
+} // 비유하자면 
+// ViewModel = 스마트폰 기본 기능 (전화, 문자) 
+// FavoritesViewModel = 내가 앱 설치해서 기능 추가할 수 있는거임
+// {} 안에 내용 = 내가 추가하는 기능들
 ```
 ## 7. XML 레이아웃 작성
 화면이 어떻게 생겼어?
