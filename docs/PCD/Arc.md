@@ -2,7 +2,7 @@
 title: architecture
 nav_order: 3
 parent: PCD
-published: "false"
+published: "true"
 ---
 ---
 # 구현 순서
@@ -166,7 +166,27 @@ Response<BookmarksResponse>
 response.isSuccessful  → 200번대인지 확인
 response.body()        → 실제 데이터 꺼내기
 response.code()        → 상태 코드 (200, 404, 500...)
+
+// @PATH, @BODY가 뭐임?
+
+// @Path — URL 경로 안에 값 넣기
+@DELETE("api/v1/bookmarks/{id}")
+suspend fun delete(@Path("id") bookmarkId: String)
+// bookmarkId = "abc123" 이면
+// → api/v1/bookmarks/abc123 으로 요청
+
+// @Body — 요청 본문에 객체 넣기
+@POST("api/v1/bookmarks")
+suspend fun add(@Body request: AddBookmarkRequest)
+// request를 JSON으로 변환해서 본문에 담아 보냄
+// → {"url": "https://example.com"}
+
+// @Query — URL 뒤에 파라미터 붙이기
+@GET("api/v1/scan-logs")
+suspend fun getLogs(@Query("page") page: Int)
+// → api/v1/scan-logs?page=1
 ```
+
 ## 4단계 - Repository 작성
 서버 응답을 앱에서 쓸 수 있게 변환해줘.
 ```kotlin
@@ -216,6 +236,40 @@ class BookmarkRepository @Inject constructor(
 }
 ```
 
+```
+4. @Singleton / @Inject / try-catch / Unit
+
+@Singleton이 뭐야?
+싱글톤 = 앱 전체에서 딱 하나만 존재하는 객체
+
+@Singleton
+class BookmarkRepository
+
+→ 앱 어디서든 BookmarkRepository를 요청하면
+  항상 같은 하나의 인스턴스를 줌
+
+왜 필요해?
+Repository, ViewModel, TokenManager 같은 건 여러 개 만들 필요가 없음
+하나만 있으면 충분하고
+여러 개 만들면 데이터가 따로따로 관리돼서 문제생김
+
+@Inject constructor가 뭐지?
+
+class BookmarkRepository @Inject constructor(
+    private val apiService: ApiService,
+)
+
+// @Inject constructor
+// = "내가 필요한 재료를 Hilt가 자동으로 줘"
+
+// 일반적으로는 이렇게 직접 만들어야 해요
+val repo = BookmarkRepository(apiService = ApiService())
+
+// @Inject constructor 붙이면
+// Hilt가 알아서 만들어줘요
+// ApiService도 알아서 찾아서 넣어줘요
+
+```
 ## 5단계 - UiState 정의
 화면이 어떤 상태를 가질 수 있어?
 ```kotlin

@@ -1,5 +1,6 @@
 ---
 title: result
+parent: PCD
 ---
 ---
 CustomTabsHelper는 -----해주는 코드고
