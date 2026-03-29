@@ -314,6 +314,11 @@ Hilt가 이걸 전부 자동으로 해줘요
 "내가 필요해" 라고 선언만 하면
 Hilt가 알아서 만들어서 넣어줘요
 
+요약
+Hilt 클래스 자동으로 만들고 연결해주는 도구 
+@Inject "Hilt야 나 만들어줘" 
+constructor 생성할 때 필요한 재료 목록
+
 return try catch문 왜?
 
 return try {
