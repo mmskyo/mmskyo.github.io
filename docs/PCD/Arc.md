@@ -119,3 +119,13 @@ class BookmarkRepository @Inject constructor(
 
 ## 5단계 - UiState 정의
 화면이 어떤 상태를 가질 수 있어?
+```kotlin
+// ui/favorites/FavoritesViewModel.kt 상단에 
+sealed class FavoritesUiState { 
+	object Loading : FavoritesUiState() 
+	object Empty : FavoritesUiState() 
+	data class Success( 
+		val bookmarks: List<Bookmark> 
+	) : FavoritesUiState() 
+	data class Error(val message: String) : FavoritesUiState() }
+```
