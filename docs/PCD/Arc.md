@@ -41,6 +41,9 @@ data class BookmarksResponse(
 	val bookmarks: List<BookmarkDto>
 )
 
+// 데이터모델도 있는데 여기서 또 정의하는 이유
+// 둘을 분리하면 서버가 api를 바꿔도 dto만 수정하면 됨
+// 예) 서버가 bookmark_id 에서 id로 바꿨을 경우
 data class BookmarkDto(
 	@SerializedName("bookmark_id") val bookmarkId: String,
 	val url: String,
@@ -49,7 +52,8 @@ data class BookmarkDto(
 	@SerializedName("created_at") val createdAt: String,
 )
 ```
-		- dto란?
+
+#### dto가 뭔데?
 ```
 DTO = Data Transfer Object
       데이터 전달 객체
@@ -68,6 +72,19 @@ data class BookmarkDto(
     @SerializedName("bookmark_id") val bookmarkId: String,
     @SerializedName("risk_level")  val riskLevel: String,
 )
+```
+
+#### @SerializedName이 뭔데?
+```
+서버 JSON 키 이름과 코틀린 변수명이 다를 때 연결해줌
+
+서버가 주는 것          코틀린에서 쓰고 싶은 이름
+"bookmark_id"    →     bookmarkId
+"risk_level"     →     riskLevel
+
+@SerializedName("bookmark_id") val bookmarkId: String
+          ↑                              ↑
+    서버 JSON 키                   코틀린 변수명
 ```
 
 ## 3. ApiService에 엔드포인트 추가
