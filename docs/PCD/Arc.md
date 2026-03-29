@@ -154,5 +154,19 @@ init {
 				_uiState.value = if (bookmarks.isEmpty()) { 
 					FavoritesUiState.Empty 
 				} else { FavoritesUiState.Success(bookmarks) } 
-			}, onFailure = { _uiState.value = FavoritesUiState.Error( it.message ?: "불러오기 실패" ) } ) } } }}
+			}, 
+			onFailure = { 
+				_uiState.value = FavoritesUiState.Error( 
+					it.message ?: "불러오기 실패" 
+				) 
+			} 
+		) 
+	} 
+}}
+```
+
+## 7. XML 레이아웃 작성
+화면이 어떻게 생겼어?
+```kotlin
+
 ```
