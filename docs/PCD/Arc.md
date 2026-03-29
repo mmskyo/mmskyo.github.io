@@ -54,5 +54,16 @@ data class BookmarkDto(
 서버 어디에 요청할까?
 ```
 // data/remote/ApiService.kt
-@GET("api)
+@GET("api/v1/users/me/bookmarks")
+suspend fun getBookmarks(): Response<BookmarksResponse>
+
+@POST("api/v1/users/me/bookmarks")
+suspend fun addBookmark(
+	@Body request: AddBookmarkRequest
+): Response<BookmarkDto>
+
+@DELETE("api/v1/users/me/bookmarks/{id}")
+suspend fun deleteBookmark(
+	@Path("id") bookmarkId: String
+): Response<Unit>
 ```
