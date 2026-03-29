@@ -49,6 +49,26 @@ data class BookmarkDto(
 	@SerializedName("created_at") val createdAt: String,
 )
 ```
+		- dto란?
+```
+DTO = Data Transfer Object
+      데이터 전달 객체
+
+서버 ↔ 앱 사이에서
+데이터를 주고받을 때 쓰는 형식이에요
+
+서버가 주는 JSON
+{
+  "bookmark_id": "abc123",
+  "risk_level": "SECURED"
+}
+
+이걸 받아서 저장하는 그릇이 DTO예요
+data class BookmarkDto(
+    @SerializedName("bookmark_id") val bookmarkId: String,
+    @SerializedName("risk_level")  val riskLevel: String,
+)
+```
 
 ## 3. ApiService에 엔드포인트 추가
 서버 어디에 요청할까?
@@ -239,8 +259,8 @@ class FavoritesFragment : Fragment() {
 ```
 새 기능 만들 때 항상 이 순서
 
-1. 모델      → "이 데이터가 뭘 담아야 해?"
-2. DTO       → "서버가 어떻게 줘?"
+1. 모델      → "이 데이터가 뭘 담아야 해?" 내가 생각해야함(앱에서 편하게 쓸 형식)
+2. DTO       → "서버가 어떻게 줘?" api 명세서가 있다면 그걸 보고 만들면됨(서버형식)
 3. ApiService → "어디에 요청해?"
 4. Repository → "서버 응답을 앱 모델로 변환"
 5. UiState   → "화면이 어떤 상태를 가져?"
