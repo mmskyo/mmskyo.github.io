@@ -168,5 +168,83 @@ init {
 ## 7. XML 레이아웃 작성
 화면이 어떻게 생겼어?
 ```kotlin
+<!-- fragment_favorites.xml -->
+<!-- 로딩 / 빈 화면 / 목록 상태에 따라 보여줄 뷰 준비 -->
 
+<ProgressBar android:id="@+id/progress" ... />
+
+<TextView
+    android:id="@+id/tv_empty"
+    android:text="즐겨찾기가 없어요"
+    android:visibility="gone" ... />
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rv_bookmarks"
+    android:visibility="gone" ... />
+```
+
+---
+
+## 8단계 - Fragment 작성
+"UiState 보고 화면 업데이트해줘"
+```kotlin
+@AndroidEntryPoint
+class FavoritesFragment : Fragment() {
+
+    private val viewModel: FavoritesViewModel by viewModels()
+
+    override fun onViewCreated(...) {
+        observeState()
+    }
+
+    private fun observeState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    when (state) {
+                        is FavoritesUiState.Loading -> {
+                            binding.progress.visibility   = View.VISIBLE
+                            binding.tvEmpty.visibility    = View.GONE
+                            binding.rvBookmarks.visibility = View.GONE
+                        }
+                        is FavoritesUiState.Empty -> {
+                            binding.progress.visibility   = View.GONE
+                            binding.tvEmpty.visibility    = View.VISIBLE
+                            binding.rvBookmarks.visibility = View.GONE
+                        }
+                        is FavoritesUiState.Success -> {
+                            binding.progress.visibility   = View.GONE
+                            binding.tvEmpty.visibility    = View.GONE
+                            binding.rvBookmarks.visibility = View.VISIBLE
+                            // 어댑터에 데이터 전달
+                        }
+                        is FavoritesUiState.Error -> {
+                            Toast.makeText(
+                                requireContext(),
+                                state.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+---
+
+### 순서 요약 (외워요!)
+```
+새 기능 만들 때 항상 이 순서
+
+1. 모델      → "이 데이터가 뭘 담아야 해?"
+2. DTO       → "서버가 어떻게 줘?"
+3. ApiService → "어디에 요청해?"
+4. Repository → "서버 응답을 앱 모델로 변환"
+5. UiState   → "화면이 어떤 상태를 가져?"
+6. ViewModel  → "데이터 가져와서 상태 업데이트"
+7. XML       → "화면이 어떻게 생겼어?"
+8. Fragment  → "상태 보고 화면 업데이트"
 ```
