@@ -75,5 +75,20 @@ suspend fun deleteBookmark(
 @Singleton
 class BookmarkRepository @Inject constructor(
 	private val apiService: ApiService,
-	private val )
+	private val favoriteCacheDao: FavoriteCacheDao,
+) {
+	// 즐겨찾기 목록 가져오기
+	suspend fun getBookmarks(): Result<List<Bookmark>> {
+		return try {
+			val response = apiService.getBookmarks()
+			if (!response.isSuccessful)
+				return Result.failure(Exception("서버 오류"))
+			}
+			// DTO -> 도메인 모델 변환
+			val bookmarks = response.body()!!.bookmarks.mapf {
+				Bookmark(
+					bookmarkId = it.bookmarkId,
+					url = it.url,
+					title = it.title,
+					riskLevel = )}}}
 ```
