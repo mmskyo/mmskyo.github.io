@@ -23,7 +23,27 @@ data class Bookmark(
 	val bookmarkId: String, // 고유 아이디
 	val url: String, // url
 	val titleL String?, // 제목, null이어도됨?
-	val riskLevel: RiskLevel, // 아
+	val riskLevel: RiskLevel, // 안전 판정
+	val createdAt: String, // 등록 시간
 	
 )
 ```
+## 2. DTO 정의
+서버가 어떤 형태로 데이터를 줄까? - api 명세서를 보며 작성
+```
+// data/remote/dto/Dtos.kt
+data class AddBookmarkRequest(
+	val url: String,
+	val title: String?,
+)
+
+data class BookmarksResponse(
+	val bookmarks: List<BookmarkDto>
+)
+
+data class BookmarkDto(
+	@SerializedName("bookmark_id") val bookmarkId: String,
+	val url: String,
+	val title: String?,
+	@SerializedName("risk_level") val riskLevel: String)
+ 
