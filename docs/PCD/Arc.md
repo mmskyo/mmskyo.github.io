@@ -518,8 +518,15 @@ observeState는 꼭 저렇게 해야함?
 observe = "관찰하다" → ViewModel의 상태를 관찰하고 바뀌면 화면 업데이트 
 observeUiState, collectState, setupObservers 이런 이름도 많이 써요 정해진 건 없어요
 
-lifecycle
-Fragment의 생명주기예요 Fragment도 태어나고 죽어요 onCreate → Fragment 생성됨 onStart → 화면에 보이기 시작 onResume → 사용자와 상호작용 가능 onPause → 다른 화면이 위에 올라옴 onStop → 화면에서 완전히 안 보임 onDestroy → Fragment 소멸 왜 중요해? → 화면이 안 보이는데도 데이터 계속 받으면 낭비거든요 repeatOnLifecycle(Lifecycle.State.STARTED) → 화면이 보일 때만 데이터 받고 안 보이면 자동으로 멈춰요
+lifecycle이 뭐야?
+Fragment의 생명주기예요 Fragment도 태어나고 죽어요 
+onCreate → Fragment 생성됨 
+onStart → 화면에 보이기 시작 
+onResume → 사용자와 상호작용 가능 
+onPause → 다른 화면이 위에 올라옴 
+onStop → 화면에서 완전히 안 보임 
+onDestroy → Fragment 소멸 
+왜 중요해? → 화면이 안 보이는데도 데이터 계속 받으면 낭비거든요 repeatOnLifecycle(Lifecycle.State.STARTED) → 화면이 보일 때만 데이터 받고 안 보이면 자동으로 멈춰요
 ```
 
 ---
@@ -536,4 +543,18 @@ Fragment의 생명주기예요 Fragment도 태어나고 죽어요 onCreate → F
 6. ViewModel  → "데이터 가져와서 상태 업데이트"
 7. XML       → "화면이 어떻게 생겼어?"
 8. Fragment  → "상태 보고 화면 업데이트"
+```
+
+```
+cf.
+DTO 서버랑 주고받는 그릇 
+도메인 모델 앱 안에서 쓰는 그릇 
+@어노테이션 특별한 역할 표시 
+suspend 기다려도 화면 안 멈춤 
+sealed 정해진 상태들만 허용 
+object 데이터 없는 상태 
+data class 데이터 있는 상태 
+_변수명 내부에서만 수정 가능 
+Lifecycle Fragment의 생사 
+RecyclerView 효율적인 목록 뷰
 ```
