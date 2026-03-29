@@ -67,3 +67,13 @@ suspend fun deleteBookmark(
 	@Path("id") bookmarkId: String
 ): Response<Unit>
 ```
+
+## 4단계 - Repository 작성
+서버 응답을 앱에서 쓸 수 있게 변환해줘.
+```
+// data/remote/BookmarkRepository.kt
+@Singleton
+class BookmarkRepository @Inject constructor(
+	private val apiService: ApiService,
+	private val )
+```
