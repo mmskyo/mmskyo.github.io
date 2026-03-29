@@ -127,5 +127,15 @@ sealed class FavoritesUiState {
 	data class Success( 
 		val bookmarks: List<Bookmark> 
 	) : FavoritesUiState() 
-	data class Error(val message: String) : FavoritesUiState() }
+	data class Error(val message: String) : FavoritesUiState() 
+}
+```
+
+## 6. ViewModel 작성
+데이터를 가져와서 화면에 전달해줘 = 비즈니스 로직
+```kotlin
+@HiltViewModel
+class FavoritesViewModel @Inject constructor (
+	private val bookmarkRepository: BookmarkRepository,
+): ViewModel() {}
 ```
