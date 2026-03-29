@@ -1259,11 +1259,7 @@ feature/login 진행 중 🔄
 
 ---
 
-### 2️⃣ 기다리는 동안 할 것 (서버 없어도 됨)
 
-지금 바로 시작 가능해요. **하나씩만** 해요!
-
-**오늘 or 내일**
 
 ```
 □ 스플래시 애니메이션 고치기
@@ -1271,31 +1267,9 @@ feature/login 진행 중 🔄
    → 통통 튀는 효과 확인
 ```
 
-**그 다음**
-
-```
-□ ResultSecuredFragment XML 완성
-   → 점수 표시 (-- / 100)
-   → XAI 탐지 근거 표시
-   → 웹사이트 접속 버튼
-```
-
-**그 다음**
-
-```
-□ ResultBlockedFragment XML 완성
-   → 위험 표시 (빨간색)
-   → 점수 표시
-   → 연결 차단 버튼
-```
 
 ---
 
-## 📅 4월 1주 (4/1~4/7) — 스캔 기능
-
-```
-□ ScanFragment URL 직접 입력 테스트 버튼 추가
-   (카메라 없이 테스트하려고)
 
 □ ScanningFragment 서버 연동
    → URL 보내고 결과 받기
@@ -1304,13 +1278,6 @@ feature/login 진행 중 🔄
    → SECURED → ResultSecuredFragment
    → BLOCKED → ResultBlockedFragment
    → 캐시 히트 → ResultWhitelistFragment
-
-□ feature/scan → develop PR
-```
-
----
-
-## 📅 4월 2주 (4/8~4/14) — 로그 화면
 
 ```
 □ LogsFragment 서버에서 스캔 이력 가져오기
@@ -1325,7 +1292,6 @@ feature/login 진행 중 🔄
 
 ---
 
-## 📅 4월 3주 (4/15~4/21) — 즐겨찾기
 
 ```
 □ FavoritesFragment 목록 표시
@@ -1339,7 +1305,6 @@ feature/login 진행 중 🔄
 
 ---
 
-## 📅 4월 4주 (4/22~4/28) — 마무리
 
 ```
 □ ProfileFragment 내 정보 표시
@@ -1352,22 +1317,3 @@ feature/login 진행 중 🔄
 □ develop → main 최종 merge
 ```
 
----
-
-## 💡 ADHD 꿀팁
-
-```
-✅ 체크리스트 하나씩만 보기
-   → 다음 것 미리 보지 말기
-
-✅ 하나 완료하면 바로 커밋
-   → 작은 성취감이 중요해요
-
-✅ 막히면 바로 물어보기
-   → 혼자 30분 이상 고민 금지
-
-✅ 오늘 할 것 딱 1~2개만 정하기
-   → 전체 목록은 잊어도 돼요
-```
-
-오늘은 **스플래시 애니메이션 하나만** 목표로 해봐요! 🎯
