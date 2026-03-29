@@ -78,7 +78,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -242,11 +242,11 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "7684cc0fc629bd69",
+  "active": "61125c0483a9c084",
   "lastOpenFiles": [
+    "docs/projects/Roadmap.md",
     "docs/todo/할일 리스트.md",
     "git.md",
-    "docs/projects/Roadmap.md",
     "docs/computerscience/android.md",
     "docs/cybersecurity/maliciouscode/윈도우즈운영체제와악성코드기초.md",
     "docs/cybersecurity/forensic/forensic.md",
