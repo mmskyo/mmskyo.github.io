@@ -87,4 +87,4 @@ class LoginViewModelTesst {
 - 보안 및 아키텍처: 의존성 주입(hilt)를 적용하여 코드 간 결합도 낮춤, 토큰 암호화 저장을 위한 구조 마련
 
 ## 검증 결과
-단위 테스트 완료: mockk, kotlinx coroutines test를 사용해 주요 시나리오 테스트 통과(성공, 불일치, )
+단위 테스트 완료: mockk, kotlinx coroutines test를 사용해 주요 시나리오 테스트 통과(성공, 불일치, 형식 틀림, 계정 비존재 - 상태 전환, 에러메시지)
