@@ -58,11 +58,12 @@ view model test
 view model은 화면을 그리기 위해 main 쓰레드라는 특별한 길을 사용
 꼭 가짜 메인스레드를 만들어줘야함
 ```
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.After
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTesst {
-	private val testDispatcher = StandardTestDispatcher()
+	private val testDispatcher = UnconfinedTestDispatcher() // standard 는 그냥, unconfined는 코루틴은 비동기 함수이기에 기다리지않고 바로 실행할수 있도록(즉시 실행) 아니면 기다리라는 함수도 따로 사용가능
 	
 	@Before
 	fun setUp() {
