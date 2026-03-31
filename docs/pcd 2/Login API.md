@@ -15,6 +15,10 @@ feat/login
 ```
 ./gradlew clean
 ```
+뒤에서 돌고있는 빌드 엔진들 gradle daemon 다 끄기
+```
+./gradlew --stop
+```
 # 3. AndroidManifest.xml 권한 추가
 
 ### 체크 할 점
