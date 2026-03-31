@@ -29,3 +29,8 @@ feat/login
 | 앱 재시작 후             | 쿠키 사라짐 → 재로그인     | 쿠키 유지 → 자동 로그인         |
 | 로그아웃 시 쿠키 삭제        | 자동 (앱 끄면 어차피 사라짐) | 직접 `clear()` 호출 필요     |
 | refresh 실패 시 쿠키 삭제  | 자동 (앱 끄면 어차피 사라짐) | 직접 `clear()` 호출 필요     |
+
+- [ ]  저장소를 영구적으로 바꿨나?
+- [ ]  `tokenManager.clear()` 가 호출되는 곳 전부 찾았나? (`Grep: tokenManager.clear`)
+- [ ]  그 모든 곳에 `cookieJar.clear()` 도 추가했나?
+- [ ]  새로 만든 클래스가 실제로 DI에 연결됐나? (`NetworkModule` 확인)
