@@ -34,3 +34,9 @@ feat/login
 - [ ]  `tokenManager.clear()` 가 호출되는 곳 전부 찾았나? (`Grep: tokenManager.clear`)
 - [ ]  그 모든 곳에 `cookieJar.clear()` 도 추가했나?
 - [ ]  새로 만든 클래스가 실제로 DI에 연결됐나? (`NetworkModule` 확인)
+
+# 테스트 모듈 만들기
+테스트하고싶은 파일을 열고(loginviewmodel) 클래스 이름에 커서를 올려놓고 option+enter(맥)/alt+enter(win) 를 누름
+![[Screenshot 2026-03-31 at 12.09.32 PM.png|323]]해당하는 라이브러리 JUnit4 선택 후 fix,
+이름과 목적지는 그대로
+setUp/@Before 선택 -
