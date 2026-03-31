@@ -66,7 +66,7 @@ class LoginViewModelTesst {
 	
 	@Before
 	fun setUp() {
-		Dispatchers.setMain(testDispatcher)
+		Dispatchers.setMain(testDispatcher) // 메인스레드 설정
 	}
 	
 	@After
