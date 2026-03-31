@@ -39,4 +39,12 @@ feat/login
 테스트하고싶은 파일을 열고(loginviewmodel) 클래스 이름에 커서를 올려놓고 option+enter(맥)/alt+enter(win) 를 누름
 ![[Screenshot 2026-03-31 at 12.09.32 PM.png|323]]해당하는 라이브러리 JUnit4 선택 후 fix,
 이름과 목적지는 그대로
-setUp/@Before 선택 -
+setUp/@Before 선택 -> 테스트 전 가짜 서버나 뷰모델을 준비하는 코드 자동생성
+generate test methods for: 테스트하고싶은 함수 선택 -> login()
+getuistate는 안드로이드테스트(에뮬레이터사용, 무거움, 화면 확인)로 할거임
+ok누르면 생성할 폴더 선택하고 생성된 파일에 테스트 코드 작성
+
+## Given-When-Then 공식:
+Given: 이런 상황일 때 (가짜 데이터 준비)
+When: 이걸 하면 (함수 호출)
+Then: 이렇게 되어야 한다 (결과 확인)
