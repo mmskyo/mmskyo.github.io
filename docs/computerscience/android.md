@@ -387,11 +387,9 @@ android {
 •
 그래서 prefs.edit().putString(...) 같은 익숙한 코드들이 보이는 거예요!
 2. 우리가 이미 암호화 완료한 곳 (2군데)
-1.
-TokenManager.kt: JWT 액세스 토큰을 저장하는 곳. (EncryptedSharedPreferences 사용 중)
-2.
-EncryptedCookieJar.kt: 서버에서 내려준 refresh_token 쿠키를 저장하는 곳. (EncryptedSharedPreferences 사용 중)
-3. NetworkModule.kt가 하는 일
+3. TokenManager.kt: JWT 액세스 토큰을 저장하는 곳. (EncryptedSharedPreferences 사용 중)
+4. EncryptedCookieJar.kt: 서버에서 내려준 refresh_token 쿠키를 저장하는 곳. (EncryptedSharedPreferences 사용 중)
+5. NetworkModule.kt가 하는 일
 보여주신 NetworkModule.kt는 이 두 가지 저장소를 **'연결'**해주는 정거장 역할을 해요.
 •
 provideCookieJar(encryptedCookieJar: EncryptedCookieJar) 함수를 통해, 아까 우리가 만든 암호화된 쿠키 저장소를 실제 네트워크 통신(OkHttpClient)에 합체시켜 줍니다.
@@ -415,9 +413,7 @@ private fun parseThrowable(e: Throwable) = when (e) {
 네트워크 인풋 아웃풋
 
 비유로 설명하자면: 컴퓨터 입장에서 네트워크는 아주 멀리 떨어져 있는 **'외부 창고'**와 같음
-1.
-내가 서버에 편지를 보내는 것 자체가 **'나가는 작업(Output)'**
-2.
-서버에서 답장을 받는 것이 **'들어오는 작업(Input)'**
+1. 내가 서버에 편지를 보내는 것 자체가 **'나가는 작업(Output)'**
+2. 서버에서 답장을 받는 것이 **'들어오는 작업(Input)'**
 그런데 이 '편지 배달(IO)' 과정에서 배달원이 사고가 나거나(인터넷 끊김), 창고 문이 잠겨 있으면(서버 터짐) 배달 작업 자체가 실패하겠죠? 자바/코틀린에서는 이렇게 **"무언가를 주고받는 작업 중에 생기는 모든 사고"**를 통칭해서 **IOException**이라고 부릅니다.
 그래서 네트워크 문제(SocketTimeoutException, UnknownHostException 등)는 모두 IOException의 자식들인 거예요!
