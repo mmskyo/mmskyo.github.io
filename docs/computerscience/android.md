@@ -380,3 +380,20 @@ android {
 | 3층-ui      | fragment, viewmodel | 사용자 눈에 보이는 곳, 사용자가 버튼을 누르면 서버에 물어보라고 시키고 결과가 오면 화면을 바꿈 |
 | 2층-do main | model, repository   | 앱의 두뇌, 서버에서 가져온 복잡한 데이터를 앱이 쓰기 좋게 가공(에러 메시지 번역도)       |
 | 1층-data    | apiservice, room    | 실제 일꾼, 진짜 서버에 편지를 보내거나(retrofit), 폰 안에 데이터를 저장(room)   |
+왜 내 눈엔 SharedPreferences가 안 보일까요?
+코드를 보면 EncryptedSharedPreferences.create(...)라는 함수를 쓰고 있죠?
+•
+비밀: EncryptedSharedPreferences는 사실 일반 SharedPreferences를 **'상속'**받아서 만든 거예요. 즉, 겉모습(이름)은 Encrypted...이지만, 내부적으로는 안드로이드의 기본 저장소 시스템인 SharedPreferences를 사용하면서 데이터만 암호화해서 넣는 방식입니다.
+•
+그래서 prefs.edit().putString(...) 같은 익숙한 코드들이 보이는 거예요!
+2. 우리가 이미 암호화 완료한 곳 (2군데)
+1.
+TokenManager.kt: JWT 액세스 토큰을 저장하는 곳. (EncryptedSharedPreferences 사용 중 ✅)
+2.
+EncryptedCookieJar.kt: 서버에서 내려준 refresh_token 쿠키를 저장하는 곳. (EncryptedSharedPreferences 사용 중 ✅)
+3. NetworkModule.kt가 하는 일
+보여주신 NetworkModule.kt는 이 두 가지 저장소를 **'연결'**해주는 정거장 역할을 해요.
+•
+provideCookieJar(encryptedCookieJar: EncryptedCookieJar) 함수를 통해, 아까 우리가 만든 암호화된 쿠키 저장소를 실제 네트워크 통신(OkHttpClient)에 합체시켜 줍니다.
+•
+결과적으로, 모든 통신 데이터(토큰, 쿠키)가 암호화되어 저장되도록 아주 튼튼하게 설계되어 있습니다.
