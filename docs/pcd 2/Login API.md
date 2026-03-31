@@ -78,3 +78,13 @@ class LoginViewModelTesst {
 }
 ```
 
+# 주요 구현 내용
+
+## ui 및 네비게이션
+`loginFragment` 및 RegisterFragment 구현, NavigationComponent를 이용한 화면 전환 로직
+## 기술적 개선
+- 사용자 중심 에러 처리: 서버 에러, 인터넷끊김, 타임아웃
+- 보안 및 아키텍처: 의존성 주입(hilt)를 적용하여 코드 간 결합도 낮춤, 토큰 암호화 저장을 위한 구조 마련
+
+## 검증 결과
+단위 테스트 완료: mockk, kotlinx coroutines test를 사용해 주요 시나리오 테스트 통과(성공, 불일치, )
