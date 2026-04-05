@@ -417,3 +417,6 @@ private fun parseThrowable(e: Throwable) = when (e) {
 2. 서버에서 답장을 받는 것이 **'들어오는 작업(Input)'**
 그런데 이 '편지 배달(IO)' 과정에서 배달원이 사고가 나거나(인터넷 끊김), 창고 문이 잠겨 있으면(서버 터짐) 배달 작업 자체가 실패하겠죠? 자바/코틀린에서는 이렇게 **"무언가를 주고받는 작업 중에 생기는 모든 사고"**를 통칭해서 **IOException**이라고 부릅니다.
 그래서 네트워크 문제(SocketTimeoutException, UnknownHostException 등)는 모두 IOException의 자식들인 거예요!
+
+# on create view
+return binding.root 뒤에는 죽은코드
