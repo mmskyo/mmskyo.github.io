@@ -486,3 +486,83 @@ collect는 '빨대'와 같아요: 수도꼭지(Flow)에 빨대를 꽂고 물이 
 lifecycleScope.launch는 '전용 일꾼'이에요: onViewCreated는 비동기 작업이 끝날 때까지 기다려주지 않고 바로 자기 할 일을 끝내버립니다. 그래서 **"나는 내 갈 길 갈 테니, 너(일꾼)는 옆에서 따로 빨대 꽂고 기다려!"**라고 시키는 것이 바로 launch입니다.
 3.
 repeatOnLifecycle은 '안전장치'예요: 사용자가 앱을 잠시 내렸을 때(홈 버튼 등)도 계속 물을 받으면 배터리가 낭비되겠죠? 이 코드는 화면이 보일 때만 빨대를 꽂고, 안 보이면 잠시 빼두는 똑똑한 역할을 합니다.
+
+# logs view model
+서버에서 보안 로그를 가져옴
+```
+package com.qguarder.android.ui.logs
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.qguarder.android.data.remote.ApiService
+import com.qguarder.android.data.remote.dto.ScanLogItemDto
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class LogsViewModel @Inject constructor(
+    private val apiService: ApiService // 서버와 통신할 일꾼 주입
+) : ViewModel() {
+
+    // 로그 목록을 담는 통 (처음엔 빈 리스트)
+    private val _logs = MutableStateFlow<List<ScanLogItemDto>>(emptyList())
+    val logs = _logs.asStateFlow()
+
+    init {
+        loadLogs() // 뷰모델이 만들어지자마자 로그를 불러옵니다.
+    }
+
+    fun loadLogs() {
+        viewModelScope.launch {
+            try {
+                val response = apiService.getScanLogs()
+                if (response.isSuccessful) {
+                    // 서버에서 받은 로그 리스트를 통에 담습니다.
+                    _logs.value = response.body()?.logs ?: emptyList()
+                }
+            } catch (e: Exception) {
+                // 에러가 나면 빈 리스트로 둡니다.
+            }
+        }
+    }
+}
+```
+
+# logs fragment 
+데이터가 비어있는지 확인해서 화면을 바꿔줌
+```
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    // 로직은 무조건 onViewCreated에서!
+    viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            // ViewModel의 로그 목록을 지켜봅니다.
+            viewModel.logs.collect { list ->
+                if (list.isEmpty()) {
+                    // 로그가 없으면 리스트를 숨기고 '비어있음' 화면을 보여줍니다.
+                    binding.rvLogs.visibility = View.GONE
+                    binding.layoutEmpty.visibility = View.VISIBLE
+                } else {
+                    // 로그가 있으면 리스트를 보여주고 '비어있음' 화면을 숨깁니다.
+                    binding.rvLogs.visibility = View.VISIBLE
+                    binding.layoutEmpty.visibility = View.GONE
+                    // 나중에 여기에 리스트 어댑터 연결 코드가 들어갑니다!
+                }
+            }
+        }
+    }
+}
+```
+
+복습 포인트
+}
+1.
+왜 init에 loadLogs()를 넣었나요?: 화면이 켜지자마자 로그를 보여주고 싶으니까, 뷰모델이 태어나자마자 일을 시키는 거예요.
+2.
+왜 collect를 쓰나요?: 서버에서 데이터를 가져오는 데 시간이 걸리죠? collect는 데이터가 도착할 때까지 기다렸다가, 데이터가 들어오는 순간 "어! 데이터 왔다! 화면 바꿔!"라고 실행해주는 아주 똑똑한 친구예요.
+3.
+repeatOnLifecycle은 왜 썼나요?: 사용자가 앱을 잠시 내리고 유튜브를 보고 있을 때는 화면을 그릴 필요가 없죠? 그때 잠시 관찰을 멈춰서 배터리를 아끼기 위함입니다.
