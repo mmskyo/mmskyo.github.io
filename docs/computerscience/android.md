@@ -419,4 +419,63 @@ private fun parseThrowable(e: Throwable) = when (e) {
 그래서 네트워크 문제(SocketTimeoutException, UnknownHostException 등)는 모두 IOException의 자식들인 거예요!
 
 # on create view
-return binding.root 뒤에는 죽은코드
+return binding.root 뒤에는 죽은코드! 나 환경 설정 다했으니까 이제 가져가
+
+```kotlin
+package com.qguarder.android.ui.favorites
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.qguarder.android.databinding.FragmentFavoritesBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+
+@AndroidEntryPoint
+class FavoritesFragment : Fragment() {
+
+    private var _binding: FragmentFavoritesBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: FavoritesViewModel by viewModels()
+
+    // 1. 여기서 건물의 뼈대를 세웁니다.
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    // 2. 건물이 완공된 후, 여기서 가구를 배치(로직 구현)합니다.
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 로직은 무조건 여기서! (onViewCreated)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favorites.collect { list ->
+                    if (list.isEmpty()) {
+                        binding.rvFavorites.visibility = View.GONE
+                        binding.layoutEmpty.visibility = View.VISIBLE
+                    } else {
+                        binding.rvFavorites.visibility = View.VISIBLE
+                        binding.layoutEmpty.visibility = View.GONE
+                        // adapter.submitList(list) <- 나중에 리스트 연결할 곳
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+```
