@@ -41,3 +41,15 @@ class LoginViewModelTesst {
 }
 ```
 
+
+# android Test
+
+
+
+테스트 에러 not empty 실패
+```
+androidx.test.espresso.base.AssertionErrorHandler$AssertionFailedWithCauseError: '(view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)' doesn't match the selected view.
+Expected: (view has effective visibility <VISIBLE> and view.getGlobalVisibleRect() to return non-empty rectangle)
+Got: view.getVisibility() was <GONE>
+View Details: RecyclerView{id=2131231165, res-name=rv_favorites, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=true, is-selected=false, layout-params=androidx.coordinatorlayout.widget.CoordinatorLayout$LayoutParams@YYYYYY, tag=null, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=168.0, child-count=0}
+```
