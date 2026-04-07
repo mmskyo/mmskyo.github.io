@@ -44,7 +44,94 @@ class LoginViewModelTesst {
 
 # android Test
 
-
+```kotlin
+package com.qguarder.android.ui.favorites  
+  
+import androidx.test.espresso.Espresso.onView  
+import androidx.test.espresso.assertion.ViewAssertions.matches  
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed  
+import androidx.test.espresso.matcher.ViewMatchers.withId  
+import androidx.test.espresso.matcher.ViewMatchers.withText  
+import com.qguarder.android.R  
+import com.qguarder.android.data.local.FavoriteCacheEntity  
+import com.qguarder.android.launchFragmentInHiltContainer  
+import dagger.hilt.android.testing.HiltAndroidRule  
+import dagger.hilt.android.testing.HiltAndroidTest  
+import org.hamcrest.CoreMatchers.not  
+import org.junit.Before  
+import org.junit.Rule  
+import org.junit.Test  
+  
+@HiltAndroidTest  
+class FavoritesFragmentTest {  
+  
+    @get:Rule  
+    var hiltRule = HiltAndroidRule(this)  
+  
+    @Before  
+    fun setUp() {  
+        hiltRule.inject()  
+    }  
+  
+    @Test  
+    fun test_favorite_empty() {  
+        // [Given] Hilt 전용 컨테이너를 사용하여 Fragment 실행  
+        launchFragmentInHiltContainer<FavoritesFragment>()  
+  
+        // [Then] UI 상태 확인  
+        // 1. "즐겨찾기가 없습니다" 텍스트가 보이는지 확인  
+        onView(withText("즐겨찾기가 없습니다"))  
+            .check(matches(isDisplayed()))  
+  
+        // 2. 비어있음 레이아웃(layout_empty)이 보이는지 확인  
+        onView(withId(R.id.layout_empty))  
+            .check(matches(isDisplayed()))  
+  
+        // 3. 하단 안내 문구가 보이는지 확인  
+        onView(withText("스캔 결과 화면에서 즐겨찾기를 추가해보세요"))  
+            .check(matches(isDisplayed()))  
+  
+        // 4. 목록(RecyclerView)이 화면에서 안 보이는지(GONE) 확인  
+        onView(withId(R.id.rv_favorites))  
+            .check(matches(not(isDisplayed())))  
+    }  
+  
+    @Test  
+    fun test_favorite_not_empty() {  
+        // 더미 목록  
+        val fakeFavorites = listOf(  
+            FavoriteCacheEntity(  
+                favoriteId = "1",  
+                url = "https://www.naver.com",  
+                title = "네이버",  
+                riskLevel = "SECURED",  
+                addedAt = "2024-03-20"  
+            ),  
+            FavoriteCacheEntity(  
+                favoriteId = "2",  
+                url = "https://www.google.com",  
+                title = "구글",  
+                riskLevel = "SECURED",  
+                addedAt = "2024-03-21"  
+            )  
+        )  
+  
+        launchFragmentInHiltContainer<FavoritesFragment>()  
+  
+        // 1. 목록(RecyclerView)이 이제 보여야 함  
+        onView(withId(R.id.rv_favorites))  
+            .check(matches(isDisplayed()))  
+  
+        // 2. 비어있음 안내 레이아웃은 숨겨져야 함  
+        onView(withId(R.id.layout_empty))  
+            .check(matches(not(isDisplayed())))  
+  
+        // 3. 내가 넣은 "네이버"라는 글자가 화면에 진짜 있는지 확인  
+        onView(withText("네이버"))  
+            .check(matches(isDisplayed()))  
+    }  
+}
+```
 
 테스트 에러 not empty 실패
 ```
