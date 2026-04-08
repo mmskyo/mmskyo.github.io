@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/pcd/즐겨찾기.md",
+                "file": "docs/pcd/Server 연동.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "즐겨찾기"
+              "title": "Server 연동"
             }
           }
         ],
@@ -202,8 +202,8 @@
   },
   "active": "7684cc0fc629bd69",
   "lastOpenFiles": [
-    "docs/pcd/Result.md",
     "docs/pcd/즐겨찾기.md",
+    "docs/pcd/Result.md",
     "docs/pcd/Server 연동.md",
     "docs/pcd/Test.md",
     "docs/pcd/Login API.md",
