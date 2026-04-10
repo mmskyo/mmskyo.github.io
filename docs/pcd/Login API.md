@@ -78,3 +78,297 @@ class LoginViewModelTesst {
 }
 ```
 
+# 토큰 갱신 문제
+1. **AuthInterceptor가 일시적 실패에도 모든 토큰을 삭제** — 네트워크 에러로 refresh가 실패해도 `tokenManager.clear()` + `cookieJar.clear()`를 호출해서 refresh_token 쿠키까지 날려버림. 다음 앱 실행 시 복구 불가.
+    
+2. **앱 시작 시 refresh 시도 없음** — access_token이 (위 이유로) 없어지면, refresh_token 쿠키가 살아있어도 바로 로그인 화면으로 보냄.
+    
+
+플랜은 5개 파일 수정으로 구성됩니다. 핵심은:
+
+- AuthInterceptor에서 네트워크 에러 시 refresh cookie를 보존
+- SplashFragment에서 access_token이 없어도 refresh cookie가 있으면 refresh 시도 후 자동 로그인
+
+### 1. `TokenManager.kt` — `clearAccessToken()` 추가
+
+```kotlin
+/** access_token만 삭제 (일시적 refresh 실패 시) */
+fun clearAccessToken() {
+    prefs.edit().remove(KEY_ACCESS).apply()
+}
+```
+
+---
+
+### 2. `EncryptedCookieJar.kt` — `hasRefreshCookie()` 추가
+
+```kotlin
+/** refresh_token 쿠키가 저장되어 있는지 확인 */
+fun hasRefreshCookie(): Boolean {
+    for ((_, cookies) in memoryCache) {
+        if (cookies.any { it.name == "refresh_token" }) return true
+    }
+    val allPrefs = prefs.all
+    for ((key, value) in allPrefs) {
+        if (key.startsWith(KEY_COOKIES) && value is String) {
+            try {
+                val jsonArray = JSONArray(value)
+                for (i in 0 until jsonArray.length()) {
+                    if (jsonArray.getJSONObject(i).getString("name") == "refresh_token") {
+                        return true
+                    }
+                }
+            } catch (_: Exception) {}
+        }
+    }
+    return false
+}
+```
+
+---
+
+### 3. `AuthInterceptor.kt` — 401 핸들링 전체 수정
+
+```kotlin
+override fun intercept(chain: Interceptor.Chain): Response {
+    val request = chain.request()
+    if (noAuthPaths.any { request.url.encodedPath.contains(it) }) {
+        return chain.proceed(request)
+    }
+
+    val authed = request.newBuilder()
+        .header("Authorization", "Bearer ${tokenManager.getAccessToken()}")
+        .build()
+    val response = chain.proceed(authed)
+
+    if (response.code == 401) {
+        response.close()
+        val refreshResponse = runBlocking {
+            try {
+                RefreshApiServiceHolder.service.refreshToken()
+            } catch (e: Exception) {
+                null // 네트워크 에러
+            }
+        }
+
+        when {
+            // 네트워크 에러 — refresh cookie 보존
+            refreshResponse == null -> {
+                tokenManager.clearAccessToken()
+                return response
+            }
+            // refresh 성공
+            refreshResponse.isSuccessful -> {
+                val newToken = refreshResponse.body()?.accessToken
+                if (newToken != null) {
+                    tokenManager.updateAccessToken(newToken)
+                    return chain.proceed(
+                        request.newBuilder()
+                            .header("Authorization", "Bearer $newToken")
+                            .build()
+                    )
+                }
+                tokenManager.clearAccessToken()
+                return response
+            }
+            // 서버가 refresh token 명확히 거부 — 전체 삭제
+            refreshResponse.code() in listOf(401, 403) -> {
+                tokenManager.clear()
+                cookieJar.clear()
+                return response
+            }
+            // 5xx 등 서버 에러 — refresh cookie 보존
+            else -> {
+                tokenManager.clearAccessToken()
+                return response
+            }
+        }
+    }
+    return response
+}
+```
+
+---
+
+### 4. `AuthRepository.kt` — `tryRefreshSession()` 추가
+
+```kotlin
+/** 앱 시작 시 refresh cookie로 세션 복구 시도 */
+suspend fun tryRefreshSession(): Boolean {
+    return try {
+        val response = RefreshApiServiceHolder.service.refreshToken()
+        if (response.isSuccessful) {
+            val token = response.body()?.accessToken
+            if (token != null) {
+                tokenManager.updateAccessToken(token)
+                true
+            } else {
+                false
+            }
+        } else if (response.code() in listOf(401, 403)) {
+            tokenManager.clear()
+            cookieJar.clear()
+            false
+        } else {
+            false
+        }
+    } catch (e: Exception) {
+        false
+    }
+}
+```
+
+---
+
+### 5. `SplashFragment.kt` — startup refresh 연결
+
+import 추가:
+
+```kotlin
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import com.qguarder.android.data.local.EncryptedCookieJar
+import com.qguarder.android.data.remote.AuthRepository
+```
+
+주입 추가:
+
+```kotlin
+@Inject lateinit var tokenManager: TokenManager
+@Inject lateinit var authRepository: AuthRepository
+@Inject lateinit var cookieJar: EncryptedCookieJar
+```
+
+버튼 클릭의 `withEndAction` 블록 변경:
+
+```kotlin
+.withEndAction {
+    if (tokenManager.isLoggedIn()) {
+        findNavController().navigate(R.id.action_splash_to_scan)
+    } else if (cookieJar.hasRefreshCookie()) {
+        binding.btnStart.isEnabled = false
+        lifecycleScope.launch {
+            val refreshed = authRepository.tryRefreshSession()
+            if (refreshed) {
+                findNavController().navigate(R.id.action_splash_to_scan)
+            } else {
+                findNavController().navigate(R.id.action_splash_to_login)
+            }
+        }
+    } else {
+        findNavController().navigate(R.id.action_splash_to_login)
+    }
+}
+```
+
+---
+
+# 앱 재실행 시 로그아웃되는 버그 수정
+
+## Context
+
+앱을 시간이 지난 후 다시 열면 로그인이 풀려있는 문제.
+
+**근본 원인**: `EncryptedCookieJar.saveFromResponse()`가 쿠키를 **병합하지 않고 교체**함.
+
+- 로그인 시 `refresh_token` 쿠키가 저장됨
+
+- 이후 다른 API 응답에 `Set-Cookie` 헤더가 오면 (세션 쿠키 등) → 기존 `refresh_token` 쿠키가 통째로 덮어써짐
+
+- access_token 만료 → refresh 시도 → refresh_token 쿠키 없음 → 실패 → 전체 토큰 삭제 → 로그아웃
+
+## 수정 파일 (1개)
+
+### `EncryptedCookieJar.kt`
+
+- `app/src/main/java/com/qguarder/android/data/local/EncryptedCookieJar.kt`
+
+`saveFromResponse()`를 수정: 쿠키를 **교체(replace)** → **병합(merge)** 방식으로 변경
+
+**변경 전** (라인 45-68):
+
+```kotlin
+
+override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
+
+if (cookies.isEmpty()) return
+
+memoryCache[url.host] = cookies // 전체 교체!
+
+// ... prefs에도 전체 교체
+
+}
+
+```
+
+**변경 후**:
+
+```kotlin
+
+override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
+
+if (cookies.isEmpty()) return
+
+// 기존 쿠키 로드 후 병합 (name+domain+path 기준)
+
+val existing = loadForRequest(url).associateBy { Triple(it.name, it.domain, it.path) }.toMutableMap()
+
+for (cookie in cookies) {
+
+existing[Triple(cookie.name, cookie.domain, cookie.path)] = cookie
+
+}
+
+val merged = existing.values.toList()
+
+memoryCache[url.host] = merged
+
+val jsonArray = JSONArray()
+
+merged.forEach { cookie ->
+
+val obj = JSONObject().apply {
+
+put("name", cookie.name)
+
+put("value", cookie.value)
+
+put("domain", cookie.domain)
+
+put("path", cookie.path)
+
+put("expiresAt", cookie.expiresAt)
+
+put("secure", cookie.secure)
+
+put("httpOnly", cookie.httpOnly)
+
+}
+
+jsonArray.put(obj)
+
+}
+
+prefs.edit()
+
+.putString("${KEY_COOKIES}_${url.host}", jsonArray.toString())
+
+.apply()
+
+}
+
+```
+
+핵심: `name + domain + path`가 같은 쿠키는 업데이트하고, 새로 온 적 없는 기존 쿠키는 그대로 유지.
+
+## 검증
+
+- 빌드 확인 (`./gradlew assembleDebug`)
+
+- 시나리오 테스트:
+
+1. 로그인 후 다른 API 호출 → refresh_token 쿠키가 유지되는지 확인
+
+2. 시간이 지난 후 앱 재실행 → 자동 로그인 유지되는지 확인
+
+3. 로그아웃 → `clear()` 호출 시 모든 쿠키 삭제되는지 확인

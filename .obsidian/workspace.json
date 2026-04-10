@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/pcd/Server 연동.md",
+                "file": "docs/pcd/Logs.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Server 연동"
+              "title": "Logs"
             }
           }
         ],
@@ -189,28 +189,30 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "obsidian-git:Open Git source control": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "bases:Create new base": false,
-      "obsidian-git:Open Git source control": false,
-      "table-editor-obsidian:Advanced Tables Toolbar": false
+      "bases:Create new base": false
     }
   },
   "active": "7684cc0fc629bd69",
   "lastOpenFiles": [
+    "docs/cybersecurity/윈도우즈운영체제와악성코드기초.md",
+    "docs/pcd/Logs.md",
     "docs/pcd/즐겨찾기.md",
-    "docs/pcd/Result.md",
-    "docs/pcd/Server 연동.md",
-    "docs/pcd/Test.md",
     "docs/pcd/Login API.md",
+    "docs/pcd/6주차.md",
+    "docs/pcd/Server 연동.md",
+    "docs/pcd/Result.md",
+    "docs/pcd/Test.md",
     "docs/computerscience/android.md",
     "docs/pcd/git.md",
     "docs/projects/Roadmap.md",
-    "docs/cybersecurity/윈도우즈운영체제와악성코드기초.md",
     "docs/todo/할일 리스트.md",
     "_site/docs/cybersecurity.html",
     "_site/assets/js/vendor/lunr.min.js",
@@ -239,8 +241,6 @@
     "docs/projects/Database.md",
     "docs/projects/FastAPI.md",
     "docs/projects/index.md",
-    "docs/projects/PEP 8.md",
-    "docs/projects/Refactoring.md",
     "Pasted image 20260315203355.png",
     "Pasted image 20260315202634.png",
     "Pasted image 20260315202514.png",
