@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/cybersecurity/윈도우즈보안과악성코드분석기초.md",
+                "file": "docs/pcd/Logs.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "윈도우즈보안과악성코드분석기초"
+              "title": "Logs"
             }
           }
         ]
@@ -187,10 +187,10 @@
   },
   "active": "7684cc0fc629bd69",
   "lastOpenFiles": [
+    "docs/cybersecurity/윈도우즈보안과악성코드분석기초.md",
     "docs/pcd/git.md",
     "docs/pcd/즐겨찾기.md",
     "docs/pcd/Logs.md",
-    "docs/cybersecurity/윈도우즈보안과악성코드분석기초.md",
     "docs/pcd/Login API.md",
     "docs/pcd/6주차.md",
     "docs/pcd/Server 연동.md",
