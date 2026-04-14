@@ -209,3 +209,9 @@ fragment_logs.xml          ← 화면 전체 틀
    → RecyclerView에 카드 5개 표시
    → tv_safe_percent, tv_stats_summary 업데이트
 ```
+
+**`@Inject constructor`에 넣는 것** → Hilt가 앱 어딘가에서 만들어 놓고 주입해주는 외부 객체 (`ApiService`, `Repository` 등)
+
+**클래스 바디에 선언하는 것** → ViewModel이 직접 만들고 관리하는 내부 상태 (`reportedIds`, `_logs`, `_stats` 등)
+
+`reportedIds`를
