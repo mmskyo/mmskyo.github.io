@@ -11,10 +11,14 @@
             "id": "daeec50baf1dece8",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "docs/pcd/git.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "git"
             }
           }
         ]
@@ -191,7 +195,7 @@
       "bases:Create new base": false
     }
   },
-  "active": "13b9135a5a764f9c",
+  "active": "daeec50baf1dece8",
   "lastOpenFiles": [
     "Untitled.canvas",
     "Untitled.md",
