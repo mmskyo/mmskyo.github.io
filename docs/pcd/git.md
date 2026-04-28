@@ -47,6 +47,9 @@ git branch -a
 # 서버 정보 업데이트
 git fetch --all
 
+# 서버내용 현재 브랜치와 로컬에서 동기화
+git pull origin 브랜치
+
 ```
 
 `fetch`는 한마디로 **"GitHub에 무슨 새로운 소식(브랜치나 커밋)이 있는지 업데이트 확인만 하는 것"**
