@@ -42,7 +42,11 @@ git push -u origin feature/login
 # 브랜치 확인
 git branch -a
 
-# 편집모드 나가기 q 스페이스 다음페이지 엔터 한줄씩 더보기
+# vim 편집모드 
+강제종료 나가기 - esc :q! enter
+완료하기 - esc :wq enter
+스페이스 다음페이지 
+엔터 한줄씩 더보기
 
 # 서버 정보 업데이트
 git fetch --all
