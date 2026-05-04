@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/pcd/git.md",
+                "file": "docs/cybersecurity/윈도우즈보안과악성코드분석기초.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "git"
+              "title": "윈도우즈보안과악성코드분석기초"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/computerscience/index.md",
+                "file": "docs/cybersecurity/윈도우즈보안과악성코드분석기초.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of index"
+              "title": "Outline of 윈도우즈보안과악성코드분석기초"
             }
           },
           {
@@ -176,7 +176,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -195,14 +195,15 @@
       "bases:Create new base": false
     }
   },
-  "active": "daeec50baf1dece8",
+  "active": "d69234ea89ceed64",
   "lastOpenFiles": [
+    "Screenshot 2026-03-31 at 12.09.32 PM.png",
+    "docs/cybersecurity/윈도우즈보안과악성코드분석기초.md",
+    "docs/pcd/git.md",
     "Untitled.canvas",
     "Untitled.md",
     "Untitled.base",
-    "docs/cybersecurity/윈도우즈보안과악성코드분석기초.md",
     "docs/pcd/Logs.md",
-    "docs/pcd/git.md",
     "docs/pcd/즐겨찾기.md",
     "docs/pcd/Login API.md",
     "docs/pcd/6주차.md",
@@ -228,7 +229,6 @@
     "docs/pcd/index.md",
     "docs/pcd/Arc.md",
     "docs/projects/backend.md",
-    "Screenshot 2026-03-31 at 12.09.32 PM.png",
     "docs/PCD/index.md",
     "docs/PCD/Login API.md",
     "docs/pcd 2/index.md",
