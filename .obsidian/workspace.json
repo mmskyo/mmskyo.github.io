@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "e4148a1aaae4ca64",
@@ -180,7 +181,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 217.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -195,7 +196,7 @@
       "bases:Create new base": false
     }
   },
-  "active": "d69234ea89ceed64",
+  "active": "daeec50baf1dece8",
   "lastOpenFiles": [
     "Screenshot 2026-03-31 at 12.09.32 PM.png",
     "docs/cybersecurity/윈도우즈보안과악성코드분석기초.md",
