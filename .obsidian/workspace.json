@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/cybersecurity/윈도우즈보안과악성코드분석기초.md",
+                "file": "docs/pcd/git.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "윈도우즈보안과악성코드분석기초"
+              "title": "git"
             }
           }
         ]
@@ -78,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "e4148a1aaae4ca64",
@@ -157,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/cybersecurity/윈도우즈보안과악성코드분석기초.md",
+                "file": "docs/pcd/git.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 윈도우즈보안과악성코드분석기초"
+              "title": "Outline of git"
             }
           },
           {
@@ -198,8 +197,8 @@
   },
   "active": "daeec50baf1dece8",
   "lastOpenFiles": [
-    "Screenshot 2026-03-31 at 12.09.32 PM.png",
     "docs/cybersecurity/윈도우즈보안과악성코드분석기초.md",
+    "Screenshot 2026-03-31 at 12.09.32 PM.png",
     "docs/pcd/git.md",
     "Untitled.canvas",
     "Untitled.md",
